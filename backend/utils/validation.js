@@ -1,5 +1,6 @@
 // backend/utils/validation.js
 const { validationResult } = require('express-validator');
+const { ValidationError } = require('sequelize');
 
 // middleware for formatting errors from express-validator middleware
 // (to customize, see express-validator's documentation)
@@ -8,9 +9,10 @@ const handleValidationErrors = (req, _res, next) => {
 
     if (!validationErrors.isEmpty()) {
         const errors = {};
+        console.log(validationErrors);
         validationErrors
             .array()
-            .forEach(error => errors[error.param] = error.msg);
+            .forEach(error => errors[error.path] = error.msg);
 
         const err = Error("Bad request.");
         err.errors = errors;
