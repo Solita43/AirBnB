@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         models.Spot,
         {foreignKey: 'ownerId', onDelete: 'cascade', hooks: true}
       );
+      User.hasMany(
+        models.Review,
+        {foreignKey: 'userId', onDelete: 'cascade', hooks: true}
+      );
     }
   }
   User.init({
