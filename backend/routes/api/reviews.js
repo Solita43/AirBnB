@@ -14,6 +14,9 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
+const err = new Error("Review couldn't be found");
+err.status = 404;
+
 router.get('/current', requireAuth, async (req, res, next) => {
     const reviews = await Review.findAll({
         where: {
@@ -54,6 +57,39 @@ router.get('/current', requireAuth, async (req, res, next) => {
     }
 
     res.json({Reviews});
+});
+
+router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
+    const review = await Review.findByPk(req.params.reviewId);
+
+    if (!review) {
+        return next(err);
+    }
+
+    if (req.user.id !== review.userId) {
+        return next(forbid);
+    }
+
+    const isMaxed = await ReviewImage.count({
+        where: {
+            reviewId: req.params.reviewId
+        }
+    });
+
+    if (isMaxed >= 10) {
+        const maxE = new Error("Maximum number of images for this resource was reached");
+        maxE.status = 403;
+        return next(maxE);
+    }
+
+    const { url } = req.body
+
+    const newImage = await review.createReviewImage({ url });
+
+    return res.json({
+        id: newImage.id,
+        url: newImage.url
+    });
 });
 
 module.exports = router;

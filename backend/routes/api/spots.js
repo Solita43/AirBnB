@@ -105,7 +105,7 @@ router.post('/', requireAuth, validateSpot, async (req, res, next) => {
     res.json(newSpot);
 });
 
-router.post('/:spotId/images', async (req, res, next) => {
+router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId);
 
     if (!spot) {
