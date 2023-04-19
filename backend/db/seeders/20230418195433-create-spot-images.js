@@ -23,27 +23,34 @@ module.exports = {
    await queryInterface.bulkInsert(options, [
     {
       spotId: 1,
-      url: 'https://images-prd.bexrealty.com/Nevada/Las-Vegas/11492-Opal-Springs-Way/2487546-240-single-family-home-1.lg.jpg'
+      url: 'https://images-prd.bexrealty.com/Nevada/Las-Vegas/11492-Opal-Springs-Way/2487546-240-single-family-home-1.lg.jpg',
+      preview: true
     },
     {
       spotId: 1,
-      url: 'https://images-prd.bexrealty.com/Nevada/Las-Vegas/11492-Opal-Springs-Way/2487546-240-single-family-home-20.lg.jpg'
+      url: 'https://images-prd.bexrealty.com/Nevada/Las-Vegas/11492-Opal-Springs-Way/2487546-240-single-family-home-20.lg.jpg',
+      preview: false
     },
     {
       spotId: 1,
-      url: 'https://images-prd.bexrealty.com/Nevada/Las-Vegas/11492-Opal-Springs-Way/2487546-240-single-family-home-49.lg.jpg'
+      url: 'https://images-prd.bexrealty.com/Nevada/Las-Vegas/11492-Opal-Springs-Way/2487546-240-single-family-home-49.lg.jpg',
+      preview: false
     },
     {
       spotId: 1,
-      url: 'https://images-prd.bexrealty.com/Nevada/Las-Vegas/11492-Opal-Springs-Way/2487546-240-single-family-home-65.lg.jpg'
+      url: 'https://images-prd.bexrealty.com/Nevada/Las-Vegas/11492-Opal-Springs-Way/2487546-240-single-family-home-65.lg.jpg',
+      preview: false
     },
     {
       spotId: 3,
-      url: 'http://www.hauteresidence.com/wp-content/uploads/2017/08/5.jpg'
+      url: 'http://www.hauteresidence.com/wp-content/uploads/2017/08/5.jpg',
+      preview: true
+
     },
     {
       spotId: 2,
-      url: 'https://luxury-houses.net/wp-content/uploads/2020/10/Magnificent-8.995-Million-Hollywood-Hills-Home-for-Sale-in-Los-Angeles-11-1024x682.jpg'
+      url: 'https://luxury-houses.net/wp-content/uploads/2020/10/Magnificent-8.995-Million-Hollywood-Hills-Home-for-Sale-in-Los-Angeles-11-1024x682.jpg',
+      preview: true
     }
    ], {});
   },
