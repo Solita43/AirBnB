@@ -71,4 +71,7 @@ const requireAuth = function (req, _res, next) {
     return next(err);
 }
 
-module.exports = { setTokenCookie, restoreUser, requireAuth };
+const forbid = new Error('Forbidden');
+forbid.status = 403;
+
+module.exports = { setTokenCookie, restoreUser, requireAuth, forbid };
