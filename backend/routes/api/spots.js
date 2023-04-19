@@ -2,7 +2,7 @@
 const express = require('express');
 const { Op } = require('sequelize');
 
-const { requireAuth } = require('../../utils/auth.js');
+const { requireAuth, forbid } = require('../../utils/auth.js');
 const { appendToSpots, findAvg } = require('../../utils/editSpotsArr');
 
 const { User, Spot, Review, SpotImage } = require('../../db/models');
@@ -54,7 +54,9 @@ const validateNewSpot = [
     handleValidationErrors
 ];
 
-
+// Err for spot doesn't exist
+const err = new Error("Spot couldn't be found");
+err.status = 404;
 
 
 router.get('/current', requireAuth, async (req, res, next) => {
@@ -85,22 +87,36 @@ router.post('/', requireAuth, validateNewSpot, async (req, res, next) => {
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
-
-
-
     const newSpot = await user.createSpot({ address, city, state, country, lat, lng, name, description, price });
 
     res.status(201);
     res.json(newSpot);
 });
 
+router.post('/:spotId/images', async (req, res, next) => {
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        return next(err);
+    }
+
+    if (req.user.id !== spot.ownerId) {
+        return next(forbid);
+    }
+
+    const { url, preview } = req.body
+
+    const newImage = await spot.createSpotImage({ url, preview });
+
+    return res.json(newImage);
+})
 
 router.get('/:spotId', async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId);
 
     if (!spot) {
-        const err = new Error("Spot couldn't be found");
-        err.status = 404;
+        // const err = new Error("Spot couldn't be found");
+        // err.status = 404;
         return next(err);
     }
 
