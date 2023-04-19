@@ -10,7 +10,7 @@ const { User, Spot, Review, SpotImage, ReviewImage } = require('../../db/models'
 
 
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
+const { handleValidationErrors, validateReview } = require('../../utils/validation');
 
 const router = express.Router();
 
@@ -51,18 +51,6 @@ const validateSpot = [
         .exists({ checkFalsey: true })
         .isLength({ min: 1 })
         .withMessage('Price per day is required'),
-    handleValidationErrors
-];
-
-const validateReview = [
-    check('review')
-        .exists({ checkFalsey: true })
-        .isLength({ min: 1 })
-        .withMessage('Review text is required'),
-    check('stars')
-        .exists({ checkFalsey: true })
-        .isInt({min: 1, max: 5})
-        .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
 ];
 

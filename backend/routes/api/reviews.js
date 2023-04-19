@@ -10,7 +10,7 @@ const { User, Spot, Review, SpotImage, ReviewImage } = require('../../db/models'
 
 
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
+const { handleValidationErrors, validateReview } = require('../../utils/validation');
 
 const router = express.Router();
 
@@ -90,6 +90,28 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         id: newImage.id,
         url: newImage.url
     });
+});
+
+router.put('/:reviewId', requireAuth, validateReview, async (req, res, next) => {
+    const reviewed = await Review.findByPk(req.params.reviewId);
+
+    if (!reviewed) {
+        return next(err);
+    }
+
+    if (req.user.id !== reviewed.userId) {
+        return next(forbid);
+    }
+
+    const {review, stars} = req.body;
+
+    reviewed.review = review;
+    reviewed.stars = stars;
+
+    await reviewed.save();
+
+    res.json(reviewed)
+
 });
 
 module.exports = router;
