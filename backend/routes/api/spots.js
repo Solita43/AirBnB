@@ -43,20 +43,13 @@ router.get('/', async (req, res, next) => {
 
 
 router.get('/:spotId', async (req, res, next) => {
-    const spot = await Spot.findByPk(req.params.spotId, {
-        // include: [
-        //     {
-        //         model: SpotImage,
-        //         attributes: {
-        //             exclude: ['createdAt', 'updatedAt']
-        //         }
-        //     },
-        //     {
-        //         model: User,
-        //         attributes: ['id']
-        //     }
-        // ]
-    });
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        const err = new Error("Spot couldn't be found");
+        err.status = 404;
+        return next(err);
+    }
 
     const spotObj = await spot.toJSON();
 
