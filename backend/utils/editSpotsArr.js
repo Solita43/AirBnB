@@ -2,26 +2,32 @@ const { Review, SpotImage } = require('../db/models');
 const { Op } = require('sequelize');
 
 
+
+const findAvg = async (obj) => {
+    const sum = await Review.sum('stars', {
+        where: {
+            spotId: obj.id
+        }
+    });
+    
+    const count = await Review.count({
+        where: {
+            spotId: obj.id
+        }
+    });
+    
+    obj.avgRating = sum / count;
+
+    return obj
+}
+
 const appendToSpots = async (arr) => {
     const Spots = [];
 
     for (let spot of arr) {
         const obj = spot.toJSON();
 
-        const sum = await Review.sum('stars', {
-            where: {
-                spotId: obj.id
-            }
-        });
-
-        const count = await Review.count({
-            where: {
-                spotId: obj.id
-            }
-        });
-
-        obj.avgRating = sum / count;
-
+        const objAvg = await findAvg(obj);
 
         const url = await SpotImage.findOne({
             where: {
@@ -40,4 +46,4 @@ const appendToSpots = async (arr) => {
 
 }
 
-module.exports = { appendToSpots }
+module.exports = { appendToSpots, findAvg }

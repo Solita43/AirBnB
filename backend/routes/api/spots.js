@@ -3,7 +3,7 @@ const express = require('express');
 const { Op } = require('sequelize');
 
 const {requireAuth } = require('../../utils/auth.js');
-const {appendToSpots } = require('../../utils/editSpotsArr');
+const {appendToSpots, findAvg } = require('../../utils/editSpotsArr');
 
 const { User, Spot, Review, SpotImage } = require('../../db/models');
 
@@ -42,7 +42,57 @@ router.get('/', async (req, res, next) => {
 });
 
 
+router.get('/:spotId', async (req, res, next) => {
+    const spot = await Spot.findByPk(req.params.spotId, {
+        // include: [
+        //     {
+        //         model: SpotImage,
+        //         attributes: {
+        //             exclude: ['createdAt', 'updatedAt']
+        //         }
+        //     },
+        //     {
+        //         model: User,
+        //         attributes: ['id']
+        //     }
+        // ]
+    });
 
+    const spotObj = await spot.toJSON();
+
+    const sum = await Review.sum('stars', {
+        where: {
+            spotId: req.params.spotId
+        }
+    });
+
+    const count = await Review.count({
+        where: {
+            spotId: req.params.spotId
+        }
+    });
+
+    spotObj.numReviews = count;
+    spotObj.avgStarRating = sum / count;
+
+    spotObj.SpotImages = await SpotImage.findAll({
+        where: {
+            spotId: req.params.spotId
+        },
+        attributes: {
+            exclude: ['spotId', 'createdAt', 'updatedAt']
+        }
+    });
+
+    spotObj.Owner = await User.scope('defaultScope').findByPk(spotObj.ownerId, {
+        attributes: {
+            exclude: ['username']
+        }
+    });
+
+
+    res.json(spotObj)
+})
 
 
 
