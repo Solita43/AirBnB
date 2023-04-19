@@ -36,7 +36,7 @@ const appendToSpots = async (arr) => {
             attributes: ['url']
         });
 
-        obj.previewImage = url.url ? url.url : null
+        obj.previewImage = url ? url.url : null
 
 
         Spots.push(obj)
