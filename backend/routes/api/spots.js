@@ -39,9 +39,13 @@ const validateNewSpot = [
         .exists({ checkFalsy: true })
         .isFloat({ min: -180, max: 180 })
         .withMessage('Longitude is not valid'),
+    // check('name')
+    //     .exists({ checkFalsey: true })
+        
+    //     .withMessage('Name must be less than 50 characters'),
     check('name')
         .exists({ checkFalsey: true })
-        .isLength({ max: 50 })
+        .isLength({ min: 1, max: 50 })
         .withMessage('Name must be less than 50 characters'),
     check('description')
         .exists({ checkFalsey: true })
@@ -104,12 +108,13 @@ router.post('/:spotId/images', async (req, res, next) => {
         return next(forbid);
     }
 
+
     const { url, preview } = req.body
 
     const newImage = await spot.createSpotImage({ url, preview });
 
     return res.json(newImage);
-})
+});
 
 router.get('/:spotId', async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId);
@@ -154,6 +159,35 @@ router.get('/:spotId', async (req, res, next) => {
 
 
     res.json(spotObj)
+});
+
+router.put('/:spotId', requireAuth, validateNewSpot, async (req, res, next) => {
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        return next(err);
+    }
+
+    if (req.user.id !== spot.ownerId) {
+        return next(forbid);
+    }
+
+
+    spot.address = address;
+    spot.city = city;
+    spot.state = state;
+    spot.country = country;
+    spot.lat = lat;
+    spot.lng = lng;
+    spot.name = name;
+    spot.description = description;
+    spot.price = price;
+
+    await spot.save();
+
+    res.json(spot);
 })
 
 
