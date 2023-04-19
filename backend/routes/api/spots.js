@@ -14,7 +14,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-const validateNewSpot = [
+const validateSpot = [
     check('address')
         .exists({ checkFalsy: true })
         .isLength({ min: 5 })
@@ -54,6 +54,18 @@ const validateNewSpot = [
     handleValidationErrors
 ];
 
+const validateReview = [
+    check('review')
+        .exists({ checkFalsey: true })
+        .isLength({ min: 1 })
+        .withMessage('Review text is required'),
+    check('stars')
+        .exists({ checkFalsey: true })
+        .isInt({min: 1, max: 5})
+        .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+];
+
 // Err for spot doesn't exist
 const err = new Error("Spot couldn't be found");
 err.status = 404;
@@ -82,7 +94,7 @@ router.get('/', async (req, res, next) => {
     });
 });
 
-router.post('/', requireAuth, validateNewSpot, async (req, res, next) => {
+router.post('/', requireAuth, validateSpot, async (req, res, next) => {
     const user = req.user;
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
@@ -140,6 +152,37 @@ router.get('/:spotId/reviews', async (req, res, next) => {
     })
 });
 
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        return next(err);
+    }
+
+    const isReviewed = await Review.findOne({
+        where: {
+            [Op.and]: [{spotId: req.params.spotId}, {userId: req.user.id}]
+        }
+    });
+
+    if (isReviewed) {
+        const err = new Error('User already has a review for this spot');
+        err.status = 500;
+        return next(err);
+    }
+
+    const { review, stars } = req.body
+
+    const newReview = await spot.createReview({
+        userId: req.user.id,
+        review,
+        stars
+    });
+
+    res.status(201);
+    res.json(newReview);
+});
+
 router.get('/:spotId', async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId);
 
@@ -185,7 +228,7 @@ router.get('/:spotId', async (req, res, next) => {
     res.json(spotObj)
 });
 
-router.put('/:spotId', requireAuth, validateNewSpot, async (req, res, next) => {
+router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
     const spot = await Spot.findByPk(req.params.spotId);
@@ -230,7 +273,6 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
         message: 'Successfully deleted'
     });
 });
-
 
 
 

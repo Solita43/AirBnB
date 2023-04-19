@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
-        len: [30, 1000]
+        len: [1, 1000]
       }
     },
     stars: {
