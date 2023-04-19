@@ -5,7 +5,7 @@ const { Op } = require('sequelize');
 const { requireAuth, forbid } = require('../../utils/auth.js');
 const { appendToSpots, findAvg } = require('../../utils/editSpotsArr');
 
-const { User, Spot, Review, SpotImage } = require('../../db/models');
+const { User, Spot, Review, SpotImage, ReviewImage } = require('../../db/models');
 
 
 
@@ -110,6 +110,34 @@ router.post('/:spotId/images', async (req, res, next) => {
     const newImage = await spot.createSpotImage({ url, preview });
 
     return res.json(newImage);
+});
+
+router.get('/:spotId/reviews', async (req, res, next) => {
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        return next(err);
+    }
+
+    const Reviews = await Review.findAll({
+        where: {
+            spotId: req.params.spotId
+        },
+        include: [
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            },
+            {
+                model: ReviewImage,
+                attributes: ['id', 'url']
+            }
+        ]
+    });
+
+    res.json({
+        Reviews
+    })
 });
 
 router.get('/:spotId', async (req, res, next) => {
