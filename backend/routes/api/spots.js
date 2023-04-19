@@ -39,10 +39,6 @@ const validateNewSpot = [
         .exists({ checkFalsy: true })
         .isFloat({ min: -180, max: 180 })
         .withMessage('Longitude is not valid'),
-    // check('name')
-    //     .exists({ checkFalsey: true })
-        
-    //     .withMessage('Name must be less than 50 characters'),
     check('name')
         .exists({ checkFalsey: true })
         .isLength({ min: 1, max: 50 })
@@ -188,7 +184,24 @@ router.put('/:spotId', requireAuth, validateNewSpot, async (req, res, next) => {
     await spot.save();
 
     res.json(spot);
-})
+});
+
+router.delete('/:spotId', requireAuth, async (req, res, next) => {
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        return next(err);
+    }
+
+    if (req.user.id !== spot.ownerId) {
+        return next(forbid);
+    }
+
+    await spot.destroy();
+    res.json({
+        message: 'Successfully deleted'
+    });
+});
 
 
 
