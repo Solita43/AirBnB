@@ -59,7 +59,7 @@ const err = new Error("Spot couldn't be found");
 err.status = 404;
 
 
-router.get('/current', requireAuth, async (req, res, next) => {
+router.get('/current', requireAuth, async (req, res, _next) => {
     const spots = await Spot.findAll({
         where: {
             ownerId: req.user.id
@@ -72,7 +72,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
     res.json({ Spots })
 });
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (_req, res, _next) => {
     const spotsArr = await Spot.findAll();
 
     const Spots = await appendToSpots(spotsArr);
@@ -82,7 +82,7 @@ router.get('/', async (req, res, next) => {
     });
 });
 
-router.post('/', requireAuth, validateSpot, async (req, res, next) => {
+router.post('/', requireAuth, validateSpot, async (req, res, _next) => {
     const user = req.user;
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
@@ -169,6 +169,35 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 
     res.status(201);
     res.json(newReview);
+});
+
+router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        return next(err);
+    }
+
+    if (req.user.id !== spot.ownerId) {
+        const Bookings = await spot.getBookings({
+            attributes: ['spotId', 'startDate', 'endDate']
+        });
+
+        return res.json( {
+            Bookings
+        });
+    } else {
+        const Bookings = await spot.getBookings({
+            include: {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            }
+        });
+
+        return res.json({
+            Bookings
+        });
+    }
 });
 
 router.get('/:spotId', async (req, res, next) => {
