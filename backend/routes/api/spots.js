@@ -10,7 +10,7 @@ const { User, Spot, Review, SpotImage, ReviewImage } = require('../../db/models'
 
 
 const { check } = require('express-validator');
-const { handleValidationErrors, validateReview } = require('../../utils/validation');
+const { handleValidationErrors, validateReview, validateSpotEdits } = require('../../utils/validation');
 
 const router = express.Router();
 
@@ -149,7 +149,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 
     const isReviewed = await Review.findOne({
         where: {
-            [Op.and]: [{spotId: req.params.spotId}, {userId: req.user.id}]
+            [Op.and]: [{ spotId: req.params.spotId }, { userId: req.user.id }]
         }
     });
 
@@ -216,7 +216,7 @@ router.get('/:spotId', async (req, res, next) => {
     res.json(spotObj)
 });
 
-router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
+router.put('/:spotId', requireAuth, validateSpotEdits, async (req, res, next) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
     const spot = await Spot.findByPk(req.params.spotId);
@@ -230,15 +230,15 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     }
 
 
-    spot.address = address;
-    spot.city = city;
-    spot.state = state;
-    spot.country = country;
-    spot.lat = lat;
-    spot.lng = lng;
-    spot.name = name;
-    spot.description = description;
-    spot.price = price;
+    if (address) spot.address = address;
+    if (city) spot.city = city;
+    if (state) spot.state = state;
+    if (country) spot.country = country;
+    if (lat) spot.lat = lat;
+    if (lng) spot.lng = lng;
+    if (name) spot.name = name;
+    if (description) spot.description = description;
+    if (price) spot.price = price;
 
     await spot.save();
 
