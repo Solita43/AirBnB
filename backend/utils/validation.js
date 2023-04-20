@@ -37,6 +37,28 @@ const validateReview = [
     handleValidationErrors
 ];
 
+const validateReviewEdits = (req, _res, next) => {
+    const {review, stars} = req.body;
+    const errors = {};
+
+    if (review === "" || review === " ") errors.review = 'Review text is required';
+    
+    if (stars > 5 || stars < 1) errors.stars = 'Stars must be an integer from 1 to 5';
+    
+    
+    if (errors.review || errors.stars) {
+        const err = new Error("Bad Request");
+        err.errors = errors;
+        err.status = 400;
+        err.title = "Bad request";
+        return next(err);
+    } 
+    
+    next();
+
+}
+
+
 module.exports = {
-    handleValidationErrors, validateReview
+    handleValidationErrors, validateReview, validateReviewEdits
 };

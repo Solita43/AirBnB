@@ -10,7 +10,7 @@ const { User, Spot, Review, SpotImage, ReviewImage } = require('../../db/models'
 
 
 const { check } = require('express-validator');
-const { handleValidationErrors, validateReview } = require('../../utils/validation');
+const { handleValidationErrors, validateReview, validateReviewEdits } = require('../../utils/validation');
 
 const router = express.Router();
 
@@ -92,7 +92,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     });
 });
 
-router.put('/:reviewId', requireAuth, validateReview, async (req, res, next) => {
+router.put('/:reviewId', requireAuth, validateReviewEdits, async (req, res, next) => {
     const reviewed = await Review.findByPk(req.params.reviewId);
 
     if (!reviewed) {
@@ -105,8 +105,8 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res, next) => 
 
     const {review, stars} = req.body;
 
-    reviewed.review = review;
-    reviewed.stars = stars;
+    if (review) reviewed.review = review
+    if (stars) reviewed.stars = stars;
 
     await reviewed.save();
 
