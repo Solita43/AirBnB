@@ -77,7 +77,7 @@ const validateSpotEdits = (req, _res, next) => {
     if (lng > 180 || lng < -180) errors.lng = "Longitude is not valid";
 
     if (name) {
-        if(name.length > 50) errors.name = "Name must be less than 50 characters";
+        if (name.length > 50) errors.name = "Name must be less than 50 characters";
     }
 
     if (description === "" || description === " ") errors.description = "Description is required";
@@ -96,12 +96,58 @@ const validateSpotEdits = (req, _res, next) => {
 
 }
 
+const validateBooking = (req, res, next) => {
+    const { startDate, endDate } = req.body;
+
+    let start = new Date(startDate.split('-').join(','));
+    let end = new Date(endDate.split('-').join(','));
+
+    console.log(start);
+    console.log(end);
+
+    const err = Error("Bad request.");
+    err.errors = { endDate: "endDate cannot be on or before startDate" };
+    err.status = 400;
+    err.title = "Bad request.";
+
+    if (startDate === endDate) next(err);
+    else if (end.getTime() < start.getTime()) next(err);
+    else next();
+
+}
 
 
+const conflict = async (spot, startDate, endDate) => {
+    const bookings = await spot.getBookings();
+
+    const begin = new Date(startDate.split('-').join(',')).getTime();
+    const stop = new Date(endDate.split('-').join('.')).getTime()
+
+    const errors = {};
+    for (let booking of bookings) {
+        const start = new Date(booking.startDate.split('-').join(',')).getTime();
+        const end = new Date(booking.endDate.split('-').join('.')).getTime();
+
+        if (begin >= start && begin < end) errors.startDate = "Start date conflicts with an existing booking";
+
+        if (stop > start && stop <= end) errors.endDate = "End date conflicts with an existing booking";
+
+        if (begin < start && stop > end) errors.endDate = "End date conflicts with an existing booking";
+
+        if (errors.startDate || errors.endDate) {
+            const err = new Error("Sorry, this spot is already booked for the specified dates");
+            err.errors = errors;
+            err.status = 404;
+            return err;
+        }
+    }
+
+    return 'pass';
+}
 
 
 
 
 module.exports = {
-    handleValidationErrors, validateReview, validateReviewEdits, validateSpotEdits
+    handleValidationErrors, validateReview, validateReviewEdits, validateSpotEdits, validateBooking, conflict
 };

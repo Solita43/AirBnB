@@ -38,8 +38,9 @@ router.get('/current', requireAuth, async (req, res, next) => {
         }); 
 
         const Spot = spot.toJSON();
-
-        Spot.previewImage = url ? url[0].dataValues.url: null;
+        if (url) console.log(url)
+        Spot.previewImage = url.length ? url[0].dataValues.url: null;
+        
 
         obj.Spot = Spot;
 

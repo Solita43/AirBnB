@@ -10,7 +10,7 @@ const { User, Spot, Review, SpotImage, ReviewImage } = require('../../db/models'
 
 
 const { check } = require('express-validator');
-const { handleValidationErrors, validateReview, validateSpotEdits } = require('../../utils/validation');
+const { handleValidationErrors, validateReview, validateSpotEdits, validateBooking, conflict } = require('../../utils/validation');
 
 const router = express.Router();
 
@@ -197,6 +197,27 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
         return res.json({
             Bookings
         });
+    }
+});
+
+router.post('/:spotId/bookings', requireAuth, validateBooking, async(req, res, next) => {
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        return next(err);
+    }
+
+    if (req.user.id === spot.ownerId) {
+        return next(forbid);
+    } 
+  
+    const {startDate, endDate} = req.body
+    const err = await conflict(spot, startDate, endDate);
+
+    if (err !== 'pass') return next(err);
+    else {
+        const booking = await spot.createBooking({ userId: req.user.id, startDate, endDate });
+        return res.json(booking);
     }
 });
 
