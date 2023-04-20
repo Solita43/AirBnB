@@ -6,13 +6,13 @@ const spotsRouter = require('./spots.js');
 const reviewsRouter = require('./reviews.js');
 const bookingsRouter = require('./bookings.js');
 const spotImagesRouter = require('./spot-images.js');
+const reviewImageRouter = require('./review-images.js');
 const { restoreUser } = require("../../utils/auth.js");
 
-const {User} = require('../../db/models');
 
 // Connect restoreUser middleware to the API router
-  // If current user session is valid, set req.user to the user in the database
-  // If current user session is not valid, set req.user to null
+// If current user session is valid, set req.user to the user in the database
+// If current user session is not valid, set req.user to null
 router.use(restoreUser);
 
 router.use('/session', sessionRouter);
@@ -27,10 +27,24 @@ router.use('/bookings', bookingsRouter);
 
 router.use('/spot-images', spotImagesRouter);
 
+router.use('/review-images', reviewImageRouter);
+
+const {User} = require('../../db/models');
+
 router.get('/test', async (req, res) => {
   const users = await User.unscoped().findAll();
   
   res.json(users);
 });
+
+// router.delete('/:userId', async (req, res, next) => {
+//   const user = await User.findByPk(req.params.userId);
+
+//   await user.destroy();
+
+//   res.json({
+//     message: "success"
+//   });
+// });
 
 module.exports = router;
