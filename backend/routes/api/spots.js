@@ -212,9 +212,9 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async(req, res, n
     } 
   
     const {startDate, endDate} = req.body
-    const err = await conflict(spot, startDate, endDate);
+    const error = await conflict(spot, startDate, endDate);
 
-    if (err !== 'pass') return next(err);
+    if (error !== 'pass') return next(error);
     else {
         const booking = await spot.createBooking({ userId: req.user.id, startDate, endDate });
         return res.json(booking);
