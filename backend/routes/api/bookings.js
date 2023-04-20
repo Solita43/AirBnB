@@ -106,25 +106,21 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     if (req.user.id !== booking.userId) {
         return next(forbid);
     }
-    const { startDate, endDate } = req.body
-
+    
     const now = Date.now();
 
     const start = new Date(booking.startDate.split('-').join('.')).getTime();
-    console.log(now >= start)
 
-    console.log(now);
-    console.log(new Date(booking.startDate.split('-').join(',')))
-   if (now >= start) {
-    const err = new Error("Bookings that have been started can't be deleted");
-    err.status = 403;
-    return next(err);
-   }
+    if (now >= start) {
+        const err = new Error("Bookings that have been started can't be deleted");
+        err.status = 403;
+        return next(err);
+    }
 
-   await booking.destroy();
-   return res.json({
-    message: "Successfully deleted"
-   });
+    await booking.destroy();
+    return res.json({
+        message: "Successfully deleted"
+    });
 });
 
 module.exports = router;

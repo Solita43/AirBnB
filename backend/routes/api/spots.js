@@ -212,6 +212,17 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async(req, res, n
     } 
   
     const {startDate, endDate} = req.body
+
+    const now = Date.now();
+
+    const start = new Date(startDate.split('-').join('.')).getTime();
+
+    if (now > start) {
+        const err = new Error("Bookings cannot be made for past dates");
+        err.status = 403;
+        return next(err);
+    }
+
     const error = await conflict(spot, startDate, endDate);
 
     if (error !== 'pass') return next(error);
