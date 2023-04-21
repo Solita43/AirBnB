@@ -11,6 +11,7 @@ const { User, Spot, Review, SpotImage, ReviewImage } = require('../../db/models'
 
 const { check } = require('express-validator');
 const { handleValidationErrors, validateReview, validateSpotEdits, validateBooking, conflict } = require('../../utils/validation');
+const {validateQueries, createPaginationObjectMiddleware, createWhereObject} = require('../../utils/searchValidation.js');
 
 const router = express.Router();
 
@@ -72,13 +73,20 @@ router.get('/current', requireAuth, async (req, res, _next) => {
     res.json({ Spots })
 });
 
-router.get('/', async (_req, res, _next) => {
-    const spotsArr = await Spot.findAll();
+router.get('/', validateQueries, createPaginationObjectMiddleware(), createWhereObject,  async (req, res, _next) => {
+    let { maxLat, minLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+    const spotsArr = await Spot.findAll({
+        where: req.where,
+        ...req.pagination
+    });
 
     const Spots = await appendToSpots(spotsArr);
 
     res.json({
-        Spots
+        Spots,
+        page: req.page,
+        size: req.size
     });
 });
 
