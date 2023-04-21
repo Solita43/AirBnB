@@ -10,7 +10,8 @@ const { User, Spot, Review, SpotImage, ReviewImage } = require('../../db/models'
 
 
 const { check } = require('express-validator');
-const { handleValidationErrors, validateReview } = require('../../utils/validation');
+const { handleValidationErrors, validateReview, validateSpotEdits, validateBooking, conflict } = require('../../utils/validation');
+const {validateQueries, createPaginationObjectMiddleware, createWhereObject} = require('../../utils/searchValidation.js');
 
 const router = express.Router();
 
@@ -59,7 +60,7 @@ const err = new Error("Spot couldn't be found");
 err.status = 404;
 
 
-router.get('/current', requireAuth, async (req, res, next) => {
+router.get('/current', requireAuth, async (req, res, _next) => {
     const spots = await Spot.findAll({
         where: {
             ownerId: req.user.id
@@ -72,17 +73,24 @@ router.get('/current', requireAuth, async (req, res, next) => {
     res.json({ Spots })
 });
 
-router.get('/', async (req, res, next) => {
-    const spotsArr = await Spot.findAll();
+router.get('/', validateQueries, createPaginationObjectMiddleware(), createWhereObject,  async (req, res, _next) => {
+    let { maxLat, minLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+    const spotsArr = await Spot.findAll({
+        where: req.where,
+        ...req.pagination
+    });
 
     const Spots = await appendToSpots(spotsArr);
 
     res.json({
-        Spots
+        Spots,
+        page: req.page,
+        size: req.size
     });
 });
 
-router.post('/', requireAuth, validateSpot, async (req, res, next) => {
+router.post('/', requireAuth, validateSpot, async (req, res, _next) => {
     const user = req.user;
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
@@ -149,7 +157,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 
     const isReviewed = await Review.findOne({
         where: {
-            [Op.and]: [{spotId: req.params.spotId}, {userId: req.user.id}]
+            [Op.and]: [{ spotId: req.params.spotId }, { userId: req.user.id }]
         }
     });
 
@@ -169,6 +177,67 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 
     res.status(201);
     res.json(newReview);
+});
+
+router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        return next(err);
+    }
+
+    if (req.user.id !== spot.ownerId) {
+        const Bookings = await spot.getBookings({
+            attributes: ['spotId', 'startDate', 'endDate']
+        });
+
+        return res.json( {
+            Bookings
+        });
+    } else {
+        const Bookings = await spot.getBookings({
+            include: {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            }
+        });
+
+        return res.json({
+            Bookings
+        });
+    }
+});
+
+router.post('/:spotId/bookings', requireAuth, validateBooking, async(req, res, next) => {
+    const spot = await Spot.findByPk(req.params.spotId);
+
+    if (!spot) {
+        return next(err);
+    }
+
+    if (req.user.id === spot.ownerId) {
+        return next(forbid);
+    } 
+  
+    const {startDate, endDate} = req.body
+
+    const now = Date.now();
+
+    const start = new Date(startDate.split('-').join('.')).getTime();
+
+    if (now > start) {
+        const err = new Error("Bookings cannot be made for past dates");
+        err.status = 403;
+        return next(err);
+    }
+
+    const error = await conflict(spot, startDate, endDate);
+
+    if (error !== 'pass') return next(error);
+    else {
+        const booking = await spot.createBooking({ userId: req.user.id, startDate, endDate });
+        return res.json(booking);
+    }
 });
 
 router.get('/:spotId', async (req, res, next) => {
@@ -216,7 +285,7 @@ router.get('/:spotId', async (req, res, next) => {
     res.json(spotObj)
 });
 
-router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
+router.put('/:spotId', requireAuth, validateSpotEdits, async (req, res, next) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
     const spot = await Spot.findByPk(req.params.spotId);
@@ -230,15 +299,15 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     }
 
 
-    spot.address = address;
-    spot.city = city;
-    spot.state = state;
-    spot.country = country;
-    spot.lat = lat;
-    spot.lng = lng;
-    spot.name = name;
-    spot.description = description;
-    spot.price = price;
+    if (address) spot.address = address;
+    if (city) spot.city = city;
+    if (state) spot.state = state;
+    if (country) spot.country = country;
+    if (lat) spot.lat = lat;
+    if (lng) spot.lng = lng;
+    if (name) spot.name = name;
+    if (description) spot.description = description;
+    if (price) spot.price = price;
 
     await spot.save();
 

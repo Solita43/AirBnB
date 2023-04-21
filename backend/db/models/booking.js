@@ -34,8 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATEONLY,
       allowNull: false,
       validate: {
-        isDate: true,
-        isAfter: this.startDate
+        isDate: true
       }
     }
   }, {
