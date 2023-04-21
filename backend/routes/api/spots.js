@@ -81,14 +81,11 @@ router.get('/', validateQueries, createPaginationObjectMiddleware(), createWhere
 
     const Spots = await appendToSpots(spotsArr);
     
-    const size = await Spot.count({
-        where: req.where
-    });
 
     res.json({
         Spots,
         page: req.page,
-        size
+        size: req.size
     });
 });
 
