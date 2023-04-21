@@ -1,8 +1,5 @@
 // backend/utils/validation.js
 const { validationResult, check } = require('express-validator');
-const { ValidationError } = require('sequelize');
-
-
 
 // middleware for formatting errors from express-validator middleware
 // (to customize, see express-validator's documentation)
@@ -96,7 +93,7 @@ const validateSpotEdits = (req, _res, next) => {
 
 }
 
-const validateBooking = (req, res, next) => {
+const validateBooking = (req, _res, next) => {
     const { startDate, endDate } = req.body;
 
     if (!startDate || !endDate) {
@@ -108,9 +105,6 @@ const validateBooking = (req, res, next) => {
 
     let start = new Date(startDate.split('-').join(','));
     let end = new Date(endDate.split('-').join(','));
-
-    console.log(start);
-    console.log(end);
 
     const err = Error("Bad request.");
     err.errors = { endDate: "endDate cannot be on or before startDate" };
