@@ -99,6 +99,13 @@ const validateSpotEdits = (req, _res, next) => {
 const validateBooking = (req, res, next) => {
     const { startDate, endDate } = req.body;
 
+    if (!startDate || !endDate) {
+        const e = new Error('Must include both startDate and endDate');
+        e.status = 400;
+        return next(e);
+    }
+
+
     let start = new Date(startDate.split('-').join(','));
     let end = new Date(endDate.split('-').join(','));
 
