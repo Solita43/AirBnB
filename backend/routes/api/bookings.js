@@ -60,18 +60,26 @@ router.get('/current', requireAuth, async (req, res, next) => {
 });
 
 router.put('/:bookingId', requireAuth, validateBooking, async (req, res, next) => {
+    const { startDate, endDate } = req.body
+
+    if (!startDate || !endDate) {
+        const e = new Error('Must include both startDate and endDate');
+        e.status = 400;
+        return next(e);
+    }
+
     const booking = await Booking.findByPk(req.params.bookingId);
-
-    const spot = await Spot.findByPk(booking.spotId);
-
+    
     if (!booking) {
         return next(err);
     }
 
+    const spot = await Spot.findByPk(booking.spotId);
+
+
     if (req.user.id !== booking.userId) {
         return next(forbid);
     }
-    const { startDate, endDate } = req.body
 
     const now = Date.now();
 
