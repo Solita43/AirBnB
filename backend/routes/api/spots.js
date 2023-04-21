@@ -82,11 +82,15 @@ router.get('/', validateQueries, createPaginationObjectMiddleware(), createWhere
     });
 
     const Spots = await appendToSpots(spotsArr);
+    
+    const size = await Spot.count({
+        where: req.where
+    });
 
     res.json({
         Spots,
         page: req.page,
-        size: req.size
+        size
     });
 });
 
@@ -116,6 +120,10 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     const { url, preview } = req.body
 
     const newImage = await spot.createSpotImage({ url, preview });
+
+    delete newImage.spotId;
+    delete newImage.createdAt;
+    delete newImage.updatedAt;
 
     return res.json(newImage);
 });
