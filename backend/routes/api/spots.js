@@ -3,7 +3,7 @@ const express = require('express');
 const { Op } = require('sequelize');
 
 const { requireAuth, forbid } = require('../../utils/auth.js');
-const { appendToSpots, findAvg } = require('../../utils/editSpotsArr');
+const { appendToSpots} = require('../../utils/editSpotsArr');
 
 const { User, Spot, Review, SpotImage, ReviewImage } = require('../../db/models');
 
@@ -74,8 +74,6 @@ router.get('/current', requireAuth, async (req, res, _next) => {
 });
 
 router.get('/', validateQueries, createPaginationObjectMiddleware(), createWhereObject,  async (req, res, _next) => {
-    let { maxLat, minLat, minLng, maxLng, minPrice, maxPrice } = req.query;
-
     const spotsArr = await Spot.findAll({
         where: req.where,
         ...req.pagination
@@ -121,11 +119,13 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 
     const newImage = await spot.createSpotImage({ url, preview });
 
-    delete newImage.spotId;
-    delete newImage.createdAt;
-    delete newImage.updatedAt;
+    const response = newImage.toJSON();
+    
+    delete response.spotId;
+    delete response.createdAt;
+    delete response.updatedAt;
 
-    return res.json(newImage);
+    return res.json(response);
 });
 
 router.get('/:spotId/reviews', async (req, res, next) => {
@@ -229,15 +229,15 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async(req, res, n
   
     const {startDate, endDate} = req.body
 
-    const now = Date.now();
+    // const now = Date.now();
 
-    const start = new Date(startDate.split('-').join('.')).getTime();
+    // const start = new Date(startDate.split('-').join('.')).getTime();
 
-    if (now > start) {
-        const err = new Error("Bookings cannot be made for past dates");
-        err.status = 403;
-        return next(err);
-    }
+    // if (now > start) {
+    //     const err = new Error("Bookings cannot be made for past dates");
+    //     err.status = 403;
+    //     return next(err);
+    // }
 
     const error = await conflict(spot, startDate, endDate);
 

@@ -29,22 +29,8 @@ router.use('/spot-images', spotImagesRouter);
 
 router.use('/review-images', reviewImageRouter);
 
-const {User} = require('../../db/models');
 
-router.get('/test', async (req, res) => {
-  const users = await User.unscoped().findAll();
-  
-  res.json(users);
-});
 
-// router.delete('/:userId', async (req, res, next) => {
-//   const user = await User.findByPk(req.params.userId);
 
-//   await user.destroy();
-
-//   res.json({
-//     message: "success"
-//   });
-// });
 
 module.exports = router;

@@ -1,23 +1,16 @@
 // backend/routes/api/session.js
 const express = require('express');
-const { Op } = require('sequelize');
 
 const { requireAuth, forbid } = require('../../utils/auth.js');
-const { appendToSpots, findAvg } = require('../../utils/editSpotsArr');
-
 const { User, Spot, Review, SpotImage, ReviewImage } = require('../../db/models');
-
-
-
-const { check } = require('express-validator');
-const { handleValidationErrors, validateReview, validateReviewEdits } = require('../../utils/validation');
+const { validateReviewEdits } = require('../../utils/validation');
 
 const router = express.Router();
 
 const err = new Error("Review couldn't be found");
 err.status = 404;
 
-router.get('/current', requireAuth, async (req, res, next) => {
+router.get('/current', requireAuth, async (req, res, _next) => {
     const reviews = await Review.findAll({
         where: {
             userId: req.user.id

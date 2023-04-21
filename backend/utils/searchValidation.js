@@ -19,7 +19,7 @@ function createPaginationObjectMiddleware(defaultSize=20, defaultPage=1){
     }
 };
 
-function createWhereObject(req, res, next) {
+function createWhereObject(req, _res, next) {
     const {maxLat, minLat, minLng, maxLng, minPrice, maxPrice} = req.query;
 
     const where = {};
@@ -40,17 +40,6 @@ function createWhereObject(req, res, next) {
 
     return next();
 };
-
-
-
-
-
-
-
-
-
-
-
 
 function validateQueries(req, _res, next) {
     let { page, size, maxLat, minLat, minLng, maxLng, minPrice, maxPrice } = req.query;

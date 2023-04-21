@@ -1,22 +1,15 @@
 const express = require('express');
-const { Op } = require('sequelize');
 
 const { requireAuth, forbid } = require('../../utils/auth.js');
-const { appendToSpots, findAvg } = require('../../utils/editSpotsArr');
-
-const { User, Spot, Review, SpotImage, ReviewImage, Booking } = require('../../db/models');
-
-
-
-const { check } = require('express-validator');
-const { handleValidationErrors, validateReview, validateReviewEdits, validateBooking, conflict } = require('../../utils/validation');
+const { Spot, Booking } = require('../../db/models');
+const {  validateBooking, conflict } = require('../../utils/validation');
 
 const router = express.Router();
 
 const err = new Error("Booking couldn't be found");
 err.status = 404;
 
-router.get('/current', requireAuth, async (req, res, next) => {
+router.get('/current', requireAuth, async (req, res, _next) => {
     const bookings = await Booking.findAll({
         where: {
             userId: req.user.id
@@ -41,7 +34,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         });
 
         const Spot = spot.toJSON();
-        if (url) console.log(url)
+        
         Spot.previewImage = url.length ? url[0].dataValues.url : null;
 
 
@@ -69,8 +62,10 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res, next) =
     }
 
     const booking = await Booking.findByPk(req.params.bookingId);
-    
+
     if (!booking) {
+        // const err = new Error("Booking couldn't be found");
+        // err.status = 404;
         return next(err);
     }
 
@@ -92,9 +87,9 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res, next) =
     }
 
 
-    const err = await conflict(spot, startDate, endDate);
+    const error = await conflict(spot, startDate, endDate);
 
-    if (err !== 'pass') return next(err);
+    if (error !== 'pass') return next(error);
     else {
         booking.startDate = startDate;
         booking.endDate = endDate;
@@ -114,7 +109,7 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     if (req.user.id !== booking.userId) {
         return next(forbid);
     }
-    
+
     const now = Date.now();
 
     const start = new Date(booking.startDate.split('-').join('.')).getTime();
