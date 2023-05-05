@@ -1,3 +1,4 @@
+import { infoWrapper } from '../utils';
 import { csrfFetch } from './csrf';
 
 // constant to avoid debugging typos
@@ -26,25 +27,26 @@ export const loginUser = (userCredentials) => async (dispatch) => {
         body: JSON.stringify(userCredentials)
     });
 
-    if (res.ok) {
-        const user = await res.json();
 
-        dispatch(setSession(user));
 
-        return user;
-    }
+    const user = await res.json();
+
+    dispatch(setSession(user));
+
+    return user;
+
 };
 
 // state object
-const initialState = {user: null};
+const initialState = { user: null };
 
 // reducer
 const sessionReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_SESSION:
-            return {...action.user };
+            return { ...action.user };
         case REMOVE_SESSION:
-            return {...state, user: null};
+            return { ...state, user: null };
         default:
             return state;
     }
