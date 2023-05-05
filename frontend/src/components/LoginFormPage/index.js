@@ -3,6 +3,7 @@ import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import "./LoginForm.css";
+import { infoWrapper } from "../../utils";
 
 
 function LoginFormPage() {
@@ -12,7 +13,8 @@ function LoginFormPage() {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
 
-    if (sessionUser) <Redirect to='/' />;
+    if (sessionUser) return <Redirect to='/' />;
+
 
     const handleSubmit = (e) => {
         e.preventDefault();

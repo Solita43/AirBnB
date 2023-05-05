@@ -1,4 +1,4 @@
-import { infoWrapper } from '../utils';
+import { objWrapper } from '../utils';
 import { csrfFetch } from './csrf';
 
 // constant to avoid debugging typos
@@ -20,7 +20,7 @@ const removeSession = () => {
     }
 }
 
-//thunk action creator
+//thunk login action creator
 export const loginUser = (userCredentials) => async (dispatch) => {
     const res = await csrfFetch('/api/session', {
         method: 'POST',
@@ -36,6 +36,16 @@ export const loginUser = (userCredentials) => async (dispatch) => {
     return user;
 
 };
+
+//thunk get session action creator
+export const restoreSession = () => async (dispatch) => {
+    const res = await csrfFetch('/api/session');
+    const user = await res.json();
+
+    dispatch(setSession(user));
+
+    return res;
+}
 
 // state object
 const initialState = { user: null };
