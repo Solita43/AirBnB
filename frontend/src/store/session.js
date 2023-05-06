@@ -1,4 +1,3 @@
-import { objWrapper } from '../utils';
 import { csrfFetch } from './csrf';
 
 // constant to avoid debugging typos
@@ -45,6 +44,20 @@ export const restoreSession = () => async (dispatch) => {
     dispatch(setSession(user));
 
     return res;
+}
+
+//thunk sign up user action creator
+export const signUpUser = (user) => async (dispatch) => {
+    const res = await csrfFetch('/api/users', {
+        method: 'POST',
+        body: JSON.stringify(user)
+    });
+
+    const data = await res.json();
+
+    dispatch(setSession(data));
+
+    return user;
 }
 
 // state object
