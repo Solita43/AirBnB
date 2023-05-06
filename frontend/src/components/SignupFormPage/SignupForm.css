@@ -24,7 +24,7 @@ h1 {
 .inputs {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 5px;
     
 }
 
