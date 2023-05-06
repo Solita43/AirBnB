@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    text-decoration: none;
 }
 
 li {
@@ -11,13 +12,13 @@ li {
 .nav {
     display: flex;
     justify-content: space-between;
-    margin: auto;
+    margin: 15px auto;
     max-width: 95%;
 }
 
 .menu-profile {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column;
     gap: 20px;
 }
 
@@ -27,6 +28,7 @@ li {
     align-items: center;
     margin: auto;
     font-size: 12px;
+    text-align:start;
 }
 
 .logout {
@@ -36,7 +38,7 @@ li {
 }
 
 .user-icon {
-    width: fit-content;
+    width: 27px;
     height: fit-content;
     align-self: center;
     color: white;
@@ -45,5 +47,9 @@ li {
     font-size: 18px;
     border-radius: 60%;
     border: none;
+}
+
+.hidden {
+    display: none;
 }
 
