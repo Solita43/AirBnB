@@ -1,0 +1,49 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    max-width: 95%;
+}
+
+.menu-profile {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 20px;
+}
+
+.profile-dropdown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    font-size: 12px;
+}
+
+.logout {
+    width: fit-content;
+    font-size: 12px;
+    padding: 1px;
+}
+
+.user-icon {
+    width: fit-content;
+    height: fit-content;
+    align-self: center;
+    color: white;
+    background-color: gray;
+    padding: 6px 6px 0px 6px;
+    font-size: 18px;
+    border-radius: 60%;
+    border: none;
+}
+
