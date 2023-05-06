@@ -1,31 +1,43 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useSelector} from 'react-redux';
-import ProfileButton from './ProfileButton';
-import './Navigation.css'
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import ProfileButton from "./ProfileButton";
+import OpenModalButton from "../OpenModalButton";
+import LoginFormModal from "../LoginFormModal";
+import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
-    const sessionUser = useSelector(state => state.session.user);
-    
+  const sessionUser = useSelector((state) => state.session.user);
 
-    return (
-        <ul className="nav">
-            <li>
-                <NavLink exact to='/' >Home</NavLink>
-            </li>
-            {!sessionUser && isLoaded && (
-                <li>
-                    <NavLink exact to='/login'>Log In</NavLink>
-                    <NavLink exact to='/signup'>Sign Up</NavLink>
-                </li>
-            )}
-            {sessionUser && isLoaded && (
-                <li>
-                    <ProfileButton user={sessionUser} />
-                </li>
-            )}
-        </ul>
+  let sessionLinks;
+  if (sessionUser) {
+    sessionLinks = (
+      <li>
+        <ProfileButton user={sessionUser} />
+      </li>
     );
+  } else {
+    sessionLinks = (
+      <li>
+        <OpenModalButton
+          buttonText="Log In"
+          modalComponent={<LoginFormModal />}
+        />
+        <NavLink to="/signup">Sign Up</NavLink>
+      </li>
+    );
+  }
+
+  return (
+    <ul>
+      <li>
+        <NavLink exact to="/">
+          Home
+        </NavLink>
+      </li>
+      {isLoaded && sessionLinks}
+    </ul>
+  );
 }
 
 export default Navigation;
