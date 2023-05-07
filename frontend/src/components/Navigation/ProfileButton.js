@@ -17,6 +17,8 @@ function ProfileButton({ user }) {
         setShowMenu(true);
     }
 
+    const closeMenu = () => setShowMenu(false);
+
     useEffect(() => {
         if (!showMenu) return;
 
@@ -32,6 +34,7 @@ function ProfileButton({ user }) {
     const logout = (e) => {
         e.preventDefault();
         dispatch(sessionActions.logoutUser());
+        closeMenu();
     }
 
 
@@ -55,10 +58,10 @@ function ProfileButton({ user }) {
                 ) : (
                     <>
                         <li>
-                            <OpenModalButton buttonText='Log In' modalComponent={<LoginFormModal />} />
+                            <OpenModalButton buttonText='Log In' modalComponent={<LoginFormModal />} onButtonClick={closeMenu} />
                         </li>
                         <li>
-                            <OpenModalButton buttonText='Sign Up' modalComponent={<SignupFormModal />} />
+                            <OpenModalButton buttonText='Sign Up' modalComponent={<SignupFormModal />} onButtonClick={closeMenu} />
                         </li>
                     </>
                 )}
