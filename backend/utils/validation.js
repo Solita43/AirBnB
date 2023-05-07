@@ -8,7 +8,6 @@ const handleValidationErrors = (req, _res, next) => {
 
     if (!validationErrors.isEmpty()) {
         const errors = {};
-        console.log(validationErrors);
         validationErrors
             .array()
             .forEach(error => errors[error.path] = error.msg);
