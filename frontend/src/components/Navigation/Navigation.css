@@ -9,9 +9,6 @@ li {
     list-style: none;
 }
 
-#home {
-}
-
 .header {
     display: flex;
     justify-content: space-evenly;
