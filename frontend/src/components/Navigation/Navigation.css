@@ -9,17 +9,22 @@ li {
     list-style: none;
 }
 
-.nav {
-    display: flex;
-    justify-content: space-between;
-    margin: 15px auto;
-    max-width: 95%;
+#home {
 }
 
-.menu-profile {
+.header {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 15px auto;
+    width: 100%;
+    padding: 20px;
+}
+
+.profile-menu {
     display: flex;
     flex-direction: column;
     gap: 20px;
+
 }
 
 .profile-dropdown {
