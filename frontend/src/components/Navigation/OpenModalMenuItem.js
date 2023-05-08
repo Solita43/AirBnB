@@ -10,7 +10,11 @@ function OpenModalMenuItem({ modalComponent, itemText, onItemClick, onModalClose
         if (onItemClick) onItemClick();
     };
 
-    return <li onClick={onClick}>{itemText}</li>;
+    return (
+        <>
+            <li onClick={onClick}>{itemText}</li>
+        </>
+    );
 }
 
 export default OpenModalMenuItem;
