@@ -6,7 +6,7 @@ function DemoUserLoginButton({closeMenu}) {
     const dispatch = useDispatch();
 
     const loginDemo = () => {
-        return dispatch(sessionActions.loginUser({credential: 'Demo-lition', password: 'password'})).then(closeMenu)
+        dispatch(sessionActions.loginUser({credential: 'Demo-lition', password: 'password'})).then(() => closeMenu());
     }
 
     return (
