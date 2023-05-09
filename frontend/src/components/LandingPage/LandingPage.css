@@ -20,5 +20,33 @@
     justify-content: space-between;
 }
 
+.tooltip {
+    position: relative;
+    cursor: pointer;
+    
+}
 
+
+
+.tooltip::before {
+    position: absolute;
+    z-index: 2;
+    width: 140px;
+    display: none;
+    left: calc(50% - 70px);
+    top: calc(50% - 70px);
+    text-align: center;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    content: attr(data-tooltip);
+
+}
+
+.tooltip:hover::before {
+    display: inline-block;
+}
 
