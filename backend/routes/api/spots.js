@@ -32,14 +32,6 @@ const validateSpot = [
         .exists({ checkFalsy: true })
         .isLength({ min: 2 })
         .withMessage('Country is required.'),
-    check('lat')
-        .exists({ checkFalsey: true })
-        .isFloat({ min: -90, max: 90 })
-        .withMessage('Latitude is not valid'),
-    check('lng')
-        .exists({ checkFalsy: true })
-        .isFloat({ min: -180, max: 180 })
-        .withMessage('Longitude is not valid'),
     check('name')
         .exists({ checkFalsey: true })
         .isLength({ min: 1, max: 50 })
@@ -92,9 +84,9 @@ router.get('/', validateQueries, createPaginationObjectMiddleware(), createWhere
 router.post('/', requireAuth, validateSpot, async (req, res, _next) => {
     const user = req.user;
 
-    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    const { address, city, state, country, name, description, price } = req.body;
 
-    const newSpot = await user.createSpot({ address, city, state, country, lat, lng, name, description, price });
+    const newSpot = await user.createSpot({ address, city, state, country, name, description, price });
 
     res.status(201);
     res.json(newSpot);
@@ -291,7 +283,7 @@ router.get('/:spotId', async (req, res, next) => {
 });
 
 router.put('/:spotId', requireAuth, validateSpotEdits, async (req, res, next) => {
-    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    const { address, city, state, country, name, description, price } = req.body;
 
     const spot = await Spot.findByPk(req.params.spotId);
 
@@ -308,8 +300,6 @@ router.put('/:spotId', requireAuth, validateSpotEdits, async (req, res, next) =>
     if (city) spot.city = city;
     if (state) spot.state = state;
     if (country) spot.country = country;
-    if (lat) spot.lat = lat;
-    if (lng) spot.lng = lng;
     if (name) spot.name = name;
     if (description) spot.description = description;
     if (price) spot.price = price;

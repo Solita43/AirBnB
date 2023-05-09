@@ -20,17 +20,9 @@ function createPaginationObjectMiddleware(defaultSize=20, defaultPage=1){
 };
 
 function createWhereObject(req, _res, next) {
-    const {maxLat, minLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+    const { minPrice, maxPrice } = req.query;
 
     const where = {};
-
-    if (maxLat) where.lat = {[Op.lte]: +maxLat};
-    if (minLat) where.lat = {[Op.gte]: +minLat};
-    if (maxLat && minLat) where.lat ={[Op.between]: [+minLat, +maxLat]};
-
-    if (maxLng) where.lng = {[Op.lte]: +maxLng};
-    if (minLng) where.lng = {[Op.gte]: +minLng};
-    if (maxLng && minLng) where.lng ={[Op.between]: [+minLng, +maxLng]};
 
     if (maxPrice) where.price = {[Op.lte]: +maxPrice};
     if (minPrice) where.price = {[Op.gte]: +minPrice};
@@ -48,10 +40,6 @@ function validateQueries(req, _res, next) {
 
     if (page <= 0) errors.page = "Page must be greater than or equal to 1";
     if (size <= 0) errors.size = "Size must be greater than or equal to 1";
-    if (maxLat > 90) errors.maxLat = "Maximum latitude is invalid";
-    if (minLat < -90) errors.minLat = "Minimum latitude is invalid";
-    if (maxLng > 180) errors.maxLng = "Maximum longitude is invalid";
-    if (minLng < -180) errors.minLng = "Minimum longitude is invalid";
     if (minPrice < 0) errors.minPrice = "Minimum price must be greater than or equal to 0";
     if (maxPrice < 0) errors.maxPrice = "Maximum price must be greater than or equal to 0";
 

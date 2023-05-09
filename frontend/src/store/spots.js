@@ -2,7 +2,9 @@ import { csrfFetch } from './csrf';
 
 // constants to avoid debugging typos
 const GET_ALL_SPOTS = 'spots/GETALLSPOTS';
-const GET_SPOT_DETAILS = 'spots/GETSPOTDETAILS'
+const GET_SPOT_DETAILS = 'spots/GETSPOTDETAILS';
+const CREATE_NEW_SPOT = 'spots/CREATENEWSPOT';
+
 
 
 // action creators:
@@ -19,6 +21,13 @@ export const listSpots = (spots) => {
 export const viewSpot = (spot) => {
     return {
         type: GET_SPOT_DETAILS,
+        spot
+    }
+}
+// Add new spot
+export const addSpot = (spot) => {
+    return {
+        type: CREATE_NEW_SPOT,
         spot
     }
 }
@@ -52,6 +61,19 @@ export const getSpotDetails = (spotId) => async (dispatch) => {
     return data;
 }
 
+// Create new spot thunk
+export const createSpot = (spot) => async (dispatch) => {
+    const res = await csrfFetch('/api/spots', {
+        method: 'POST',
+        body: JSON.stringify(spot)
+    });
+
+    const data = await res.json();
+
+    dispatch(addSpot(data));
+    return data;
+}
+
 
 // state object
 const initialState = { allSpots: {} };
@@ -62,7 +84,9 @@ const spotsReducer = (state = initialState, action) => {
         case GET_ALL_SPOTS: 
             return {...state, allSpots: {...action.spots}};
         case GET_SPOT_DETAILS:
-            return { ...state, allSpots: {...state.allSpots}, singleSpot: {...action.spot} }
+            return { ...state, allSpots: {...state.allSpots}, singleSpot: {...action.spot} };
+        case CREATE_NEW_SPOT:
+            return {...state, allSpots: {...state.allSpots, [action.spot.id]: action.spot}};
         default:
             return state;
     }

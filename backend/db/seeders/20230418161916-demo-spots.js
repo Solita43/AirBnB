@@ -26,8 +26,6 @@ module.exports = {
       city: 'Las Vegas',
       state: 'NV',
       country: 'United States',
-      lat: 36.181690, 
-      lng: -115.216714,
       name: 'Heartbreak Hotel',
       description: 'Come mend your broken heart. We offer bottemless ice cream and parties so wild you will forget you had a broken heart to begin with!',
       price: 380
@@ -38,8 +36,6 @@ module.exports = {
       city: 'Los Angeles',
       state: 'CA',
       country: 'United States',
-      lat: 33.99991522838794, 
-      lng: -118.47745632323308,
       name: 'Luxury Getaway',
       description: 'Take a break, relax, and enjoy the city!',
       price: 675
@@ -50,8 +46,6 @@ module.exports = {
       city: 'San Diego',
       state: 'CA',
       country: 'United States',
-      lat: 32.74513668884102,
-      lng: -117.25116354192207, 
       name: 'Fun in the Sun',
       description: 'Leave your cares behind and enjoy a stay in this cozy getaway right near the beach!',
       price: 210
