@@ -1,0 +1,28 @@
+#spot-details {
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+}
+
+#spot-images {
+    display: flex;
+    max-width: 100%;
+    gap: 5px;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+#previewImg {
+    width: 50%;
+    object-fit: contain;
+}
+
+#smaller-images {
+    display: flex;
+    flex-wrap: wrap;
+    width: 25%;
+    height: 25%;
+    object-fit: cover;
+}

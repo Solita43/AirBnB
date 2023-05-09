@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from "./OpenModalMenuItem";
@@ -10,6 +11,8 @@ function ProfileButton({ user }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
+    const history = useHistory();
+    
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
@@ -36,6 +39,8 @@ function ProfileButton({ user }) {
         e.preventDefault();
         dispatch(sessionActions.logoutUser());
         closeMenu();
+        history.push('/')
+
     }
 
 
@@ -61,7 +66,7 @@ function ProfileButton({ user }) {
                         <OpenModalMenuItem itemText='Log In' modalComponent={<LoginFormModal />} onItemClick={closeMenu} />
                         <OpenModalMenuItem itemText='Sign Up' modalComponent={<SignupFormModal />} onItemClick={closeMenu} />
                         <li>
-                           <DemoUserLoginButton closeMenu /> 
+                           <DemoUserLoginButton closeMenu={closeMenu} /> 
                         </li>
                     </>
                 )}
