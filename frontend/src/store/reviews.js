@@ -4,6 +4,8 @@ import { csrfFetch } from './csrf';
 const GET_SPOT_REVIEWS = 'reviews/GETSPOTREVIEWS';
 
 // action creators:
+
+// List all reviews for current spot
 export const listSpotReviews = (reviews) => {
     return {
         type: GET_SPOT_REVIEWS,
@@ -12,6 +14,8 @@ export const listSpotReviews = (reviews) => {
 }
 
 //thunk action creators: 
+
+// Get all reviews for spot thunk
 export const getReviewsForSpot = (spotId) => async (dispatch) => {
     const res = await fetch(`/api/spots/${spotId}/reviews`);
     const data = await res.json();
@@ -22,6 +26,17 @@ export const getReviewsForSpot = (spotId) => async (dispatch) => {
     }
     
     dispatch(listSpotReviews(reviews))
+}
+
+// Post a review thunk
+export const postReview = (spotId, review) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+        method: 'POST',
+        body: JSON.stringify(review)
+    });
+
+    dispatch(getReviewsForSpot(spotId));
+
 }
 
 
