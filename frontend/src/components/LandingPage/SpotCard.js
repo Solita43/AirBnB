@@ -18,6 +18,8 @@ function SpotCard({ spot, update }) {
 
     if (!spot) return null;
 
+    const rating = spot.avgRating? spot.avgRating.toFixed(2) : 'New';
+
     return (
         <div className='spot-card'>
             <NavLink to={`/spotDetails/${spot.id}`}>
@@ -26,7 +28,7 @@ function SpotCard({ spot, update }) {
                 </div>
                 <div className="rating-location">
                     <p className="card-location">{spot.city}, {spot.state}</p>
-                    <p className="card-starRating">{spot.avgRating ? spot.avgRating : 'New'}</p>
+                    <p className="card-starRating"><i className="fa-solid fa-star" style={{color: '#0f0000'}}></i>{rating}</p>
                 </div>
                 <p className="card-price">{`$${spot.price} night`}</p>
             </NavLink>

@@ -3,16 +3,20 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import * as spotsActions from '../../store/spots';
 import './SpotDetailsPage.css';
+import { getReviewsForSpot } from '../../store/reviews';
 
 function SpotDetailsPage() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spots.singleSpot);
+    const reviewsObj = useSelector(state => state.reviews.spot);
+    const reviews = Object.values(reviewsObj);
 
 
     useEffect(() => {
 
         dispatch(spotsActions.getSpotDetails(spotId));
+        dispatch(getReviewsForSpot(spotId))
 
     }, [dispatch])
 
@@ -23,12 +27,17 @@ function SpotDetailsPage() {
     }
 
     if (!spot || !spot.SpotImages) return null;
-   
+
     const spotImageArr = spot.SpotImages;
     const previewImage = spotImageArr.find((image) => image.preview);
-    const images = spotImageArr.filter(image => !image.preview);   
+    const images = spotImageArr.filter(image => !image.preview);
 
-
+    let reviewCount;
+    if (spot.numReviews === 1) {
+        reviewCount = `${spot.numReviews} Review`
+    } else if (spot.numReviews > 1) {
+        reviewCount = `${spot.numReviews} Reviews`
+    }
 
 
     return (
@@ -50,9 +59,22 @@ function SpotDetailsPage() {
                 </div>
                 <div id='callout'>
                     <h3>${spot.price} night</h3>
-                    <h4>{spot.avgStarRating ? spot.avgStarRating: 'New'}</h4>
+                    <p><i className="fa-solid fa-star"></i>{spot.avgStarRating ? spot.avgStarRating : 'New'}   {reviewCount && (<><i className="fa-solid fa-circle" style={{ fontSize: '3px' }}></i> {reviewCount}</>)}</p>
                     <button id='reserve' onClick={handleClick}>Reserve</button>
                 </div>
+            </div>
+            <div id='details-reviews'>
+                <h3><i className="fa-solid fa-star"></i> {spot.avgStarRating ? spot.avgStarRating : 'New'} {reviewCount && (<><i className="fa-solid fa-circle" style={{ fontSize: '3px' }}></i> {reviewCount}</>)}</h3>
+            </div>
+            <div id='reviews'>
+                {reviews && reviews.map(review => {
+                    return (
+                        <>
+                            <h5>{review.User.firstName}</h5>
+                            <p>{review.review}</p>
+                        </>
+                    )
+                })}
             </div>
         </div>
     );
