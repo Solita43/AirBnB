@@ -10,7 +10,8 @@ function SpotDetailsPage() {
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spots.singleSpot);
     const reviewsObj = useSelector(state => state.reviews.spot);
-    const reviews = reviewsObj ? Object.values(reviewsObj): null;
+    const reviews = reviewsObj ? Object.values(reviewsObj) : null;
+    const sessionUser = useSelector(state => state.session.user);
 
 
     useEffect(() => {
@@ -42,10 +43,11 @@ function SpotDetailsPage() {
     const getDate = (date) => {
         const obj = new Date(date);
         const month = obj.toDateString().split(' ')[1]
-           const year = obj.getFullYear();
-
+        const year = obj.getFullYear();
         return `${month}, ${year}`;
     }
+
+
 
     return (
         <div id='spot-details'>
@@ -76,13 +78,14 @@ function SpotDetailsPage() {
             <div id='reviews'>
                 {reviews && reviews.map(review => {
                     return (
-                        <>
+                        <div className='review' key={`${review.id}`}>
                             <h5>{review.User.firstName}</h5>
                             <p>{getDate(review.updatedAt)}</p>
                             <p>{review.review}</p>
-                        </>
+                        </div>
                     )
                 })}
+                {sessionUser.id !== spot.ownerId ? (<p>Be the first to post a review!</p>): null}
             </div>
         </div>
     );
