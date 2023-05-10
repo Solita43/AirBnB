@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as spotActions from '../../store/spots';
+import OpenModalButton from '../OpenModalButton';
+import DeleteSpotModal from "../DeleteSpotModal";
 
 function SpotCard({ spot, update }) {
     const history = useHistory();
@@ -27,13 +29,13 @@ function SpotCard({ spot, update }) {
                     <p className="card-starRating">{spot.avgRating ? spot.avgRating : 'New'}</p>
                 </div>
                 <p className="card-price">{`$${spot.price} night`}</p>
-                {update && (
-                    <>
-                        <button onClick={handleUpdate}>Update</button>
-                        <button>Delete</button>
-                    </>
-                )}
             </NavLink>
+            {update && (
+                <>
+                    <button onClick={handleUpdate}>Update</button>
+                    <OpenModalButton modalComponent={<DeleteSpotModal spotId={spot.id}/>} buttonText='Delete' />
+                </>
+            )}
         </div>
     );
 }
