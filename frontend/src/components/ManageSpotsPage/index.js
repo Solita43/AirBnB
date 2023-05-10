@@ -13,7 +13,7 @@ function ManageSpotsPage() {
 
     useEffect(() => {
         dispatch(getCurrentSpots()).then(() => setIsLoaded(true));
-    })
+    }, [])
     
     return (
         <div id='user-spots'>

@@ -5,7 +5,7 @@ const GET_ALL_SPOTS = 'spots/GETALLSPOTS';
 const GET_SPOT_DETAILS = 'spots/GETSPOTDETAILS';
 const CREATE_NEW_SPOT = 'spots/CREATENEWSPOT';
 const UPDATE_SPOT = 'spots/UPDATESPOT';
-const GET_USERS_SPOTS = 'spots/GETUSERSSPOTS'
+const DELETE_SPOT = 'spots/DELETE SPOT';
 
 
 
@@ -34,10 +34,19 @@ export const addSpot = (spot) => {
     }
 }
 
+// Edit a spot
 export const editSpot = (spot) => {
     return {
         type: UPDATE_SPOT,
         spot
+    }
+}
+
+// Delete a spot
+export const removeSpot = (spotId) => {
+    return {
+        type: DELETE_SPOT,
+        spotId
     }
 }
 
@@ -104,10 +113,20 @@ export const updateSpot = (spotId, spot) => async (dispatch) => {
     });
 
     const data = await res.json();
-    console.log('THIS IS THE UPDATED SPOT PASSING TO STORE', data)
     dispatch(editSpot(data));
 
     return data;
+}
+
+// Delete a spot thunk
+export const deleteSpot = (spotId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'DELETE'
+    });
+
+    const data = await res.json();
+
+    dispatch(removeSpot(spotId));
 }
 
 
@@ -125,6 +144,11 @@ const spotsReducer = (state = initialState, action) => {
             return {...state, allSpots: {...state.allSpots, [action.spot.id]: action.spot}};
         case UPDATE_SPOT:
             return {...state, allSpots: {...state.allSpots, [action.spot.id]: action.spot}, singleSpot: {...state.singleSpot}}
+        case DELETE_SPOT: {
+            const newState = {allSpots: {...state.allSpots}};
+            delete newState.allSpots[action.spotId];
+            return newState;
+        }
         default:
             return state;
     }

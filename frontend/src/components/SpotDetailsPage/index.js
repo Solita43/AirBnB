@@ -14,7 +14,7 @@ function SpotDetailsPage() {
 
         dispatch(spotsActions.getSpotDetails(spotId));
 
-    }, [])
+    }, [dispatch])
 
     const handleClick = (e) => {
         e.preventDefault();
