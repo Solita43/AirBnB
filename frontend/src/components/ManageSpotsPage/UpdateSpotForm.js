@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as spotActions from '../../store/spots';
-import {useHistory} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 function UpdateSpotForm() {
     const spot = useSelector(state => state.spots.singleSpot);
@@ -13,8 +13,8 @@ function UpdateSpotForm() {
     const [name, setName] = useState(spot.name);
     const [price, setPrice] = useState(spot.price);
     const [errors, setErrors] = useState({})
-    const history = useHistory();
     const dispatch = useDispatch();
+    const [isSubmitted, setIsSubmitted] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,8 +36,10 @@ function UpdateSpotForm() {
             }
         });
 
-        history.push(`spotDetails/${spot.id}`);
+        setIsSubmitted(true);
     }
+
+    if (isSubmitted) return <Redirect to={`/spotDetails/${spot.id}`} />
 
     return (
         <>
@@ -82,7 +84,7 @@ function UpdateSpotForm() {
                     <p>Competitive pricing can help your listing stand out and rank higher in search results.<br></br>
                         $ <input type="text" required value={price} onChange={(e) => setPrice(e.target.value)}></input> </p>
                 </div>
-                <button type="submit">Create a Spot</button>
+                <button type="submit">Create Spot</button>
 
             </form>
         </>

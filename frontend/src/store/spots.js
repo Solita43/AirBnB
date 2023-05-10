@@ -76,9 +76,9 @@ export const getSpotDetails = (spotId) => async (dispatch) => {
     const res = await fetch(`/api/spots/${spotId}`);
     const data = await res.json();
 
-    if (res.ok) {
+    
         dispatch(viewSpot(data));
-    } 
+    
 
     return data;
 }
@@ -104,6 +104,7 @@ export const updateSpot = (spotId, spot) => async (dispatch) => {
     });
 
     const data = await res.json();
+    console.log('THIS IS THE UPDATED SPOT PASSING TO STORE', data)
     dispatch(editSpot(data));
 
     return data;
@@ -123,7 +124,7 @@ const spotsReducer = (state = initialState, action) => {
         case CREATE_NEW_SPOT:
             return {...state, allSpots: {...state.allSpots, [action.spot.id]: action.spot}};
         case UPDATE_SPOT:
-            return {...state, allSpots: {...state.allSpots, [action.spot.id]: action.spot}, singleSpot: {...action.spot}}
+            return {...state, allSpots: {...state.allSpots, [action.spot.id]: action.spot}, singleSpot: {...state.singleSpot}}
         default:
             return state;
     }

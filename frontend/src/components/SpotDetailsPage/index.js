@@ -14,7 +14,7 @@ function SpotDetailsPage() {
 
         dispatch(spotsActions.getSpotDetails(spotId));
 
-    }, [dispatch])
+    }, [])
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -22,11 +22,12 @@ function SpotDetailsPage() {
 
     }
 
-    if (!spot) return null;
-
+    if (!spot || !spot.SpotImages) return null;
+   
     const spotImageArr = spot.SpotImages;
     const previewImage = spotImageArr.find((image) => image.preview);
-    const images = spotImageArr.filter(image => !image.preview);
+    const images = spotImageArr.filter(image => !image.preview);   
+
 
 
 
@@ -38,7 +39,7 @@ function SpotDetailsPage() {
                 <img src={previewImage.url} alt='Preview Image' id='previewImg'></img>
                 <div id='smaller-images'>
                     {images.map((image, idx) => {
-                        if (idx < 4) return (<img src={image.url} key={image.id}></img>)
+                        if (idx < 4) return (<img src={image.url} key={image.id} className='detail-images'></img>)
                     })}
                 </div>
             </div>
