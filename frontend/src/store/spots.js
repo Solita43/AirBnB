@@ -4,6 +4,8 @@ import { csrfFetch } from './csrf';
 const GET_ALL_SPOTS = 'spots/GETALLSPOTS';
 const GET_SPOT_DETAILS = 'spots/GETSPOTDETAILS';
 const CREATE_NEW_SPOT = 'spots/CREATENEWSPOT';
+const UPDATE_SPOT = 'spots/UPDATESPOT';
+const GET_USERS_SPOTS = 'spots/GETUSERSSPOTS'
 
 
 
@@ -32,6 +34,13 @@ export const addSpot = (spot) => {
     }
 }
 
+export const editSpot = (spot) => {
+    return {
+        type: UPDATE_SPOT,
+        spot
+    }
+}
+
 
 //thunk login action creators: 
 
@@ -47,6 +56,19 @@ export const getAllSpots = () => async (dispatch) => {
 
     dispatch(listSpots(spots));
 
+}
+
+//get current users spots thunk
+export const getCurrentSpots = () => async (dispatch) => {
+    const res = await csrfFetch('/api/spots/current');
+    const data = await res.json();
+
+    const spots = {};
+    data.Spots.forEach(spot => {
+        spots[spot.id] = spot;
+    });
+
+    dispatch(listSpots(spots));
 }
 
 //Get details for one spot thunk
@@ -74,6 +96,19 @@ export const createSpot = (spot) => async (dispatch) => {
     return data;
 }
 
+// Update a spot thunk
+export const updateSpot = (spotId, spot) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'PUT',
+        body: JSON.stringify(spot)
+    });
+
+    const data = await res.json();
+    dispatch(editSpot(data));
+
+    return data;
+}
+
 
 // state object
 const initialState = { allSpots: {} };
@@ -87,6 +122,8 @@ const spotsReducer = (state = initialState, action) => {
             return { ...state, allSpots: {...state.allSpots}, singleSpot: {...action.spot} };
         case CREATE_NEW_SPOT:
             return {...state, allSpots: {...state.allSpots, [action.spot.id]: action.spot}};
+        case UPDATE_SPOT:
+            return {...state, allSpots: {...state.allSpots, [action.spot.id]: action.spot}, singleSpot: {...action.spot}}
         default:
             return state;
     }

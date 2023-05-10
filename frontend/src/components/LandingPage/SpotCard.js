@@ -1,9 +1,20 @@
 import React from "react";
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import { NavLink, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import * as spotActions from '../../store/spots';
 
-function SpotCard({ spot }) {
+function SpotCard({ spot, update }) {
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        dispatch(spotActions.viewSpot(spot));
+        history.push(`/spots/${spot.id}/edit`)
+
+    }
+
     if (!spot) return null;
-
 
     return (
         <div className='spot-card'>
@@ -16,6 +27,12 @@ function SpotCard({ spot }) {
                     <p className="card-starRating">{spot.avgRating ? spot.avgRating : 'New'}</p>
                 </div>
                 <p className="card-price">{`$${spot.price} night`}</p>
+                {update && (
+                    <>
+                        <button onClick={handleUpdate}>Update</button>
+                        <button>Delete</button>
+                    </>
+                )}
             </NavLink>
         </div>
     );

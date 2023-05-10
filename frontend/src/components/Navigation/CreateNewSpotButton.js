@@ -6,7 +6,7 @@ function CreateNewSpotButton() {
 
     const handleClick = (e) => {
         e.preventDefault();
-        history.push('/create-new-spot-form')
+        history.push('/spots/new')
     }
 
     return (
