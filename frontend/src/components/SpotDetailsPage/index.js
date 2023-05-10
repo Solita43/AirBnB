@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as spotsActions from '../../store/spots';
 import './SpotDetailsPage.css';
 import { getReviewsForSpot } from '../../store/reviews';
+import OpenModalButton from '../OpenModalButton';
+import PostReviewModal from '../PostReviewModal';
 
 function SpotDetailsPage() {
     const { spotId } = useParams();
@@ -47,8 +49,6 @@ function SpotDetailsPage() {
         return `${month}, ${year}`;
     }
 
-
-
     return (
         <div id='spot-details'>
             <h1>{spot.name}</h1>
@@ -76,6 +76,9 @@ function SpotDetailsPage() {
                 <h3><i className="fa-solid fa-star"></i> {spot.avgStarRating ? spot.avgStarRating : 'New'} {reviewCount && (<><i className="fa-solid fa-circle" style={{ fontSize: '3px' }}></i> {reviewCount}</>)}</h3>
             </div>
             <div id='reviews'>
+                {sessionUser && !reviews.find(review => review.userId === sessionUser.id) && sessionUser.id !== spot.ownerId && (
+                    <OpenModalButton modalComponent={PostReviewModal} buttonText='Post Your Review' />
+                )}
                 {reviews && reviews.map(review => {
                     return (
                         <div className='review' key={`${review.id}`}>
