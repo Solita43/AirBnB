@@ -42,7 +42,7 @@ function PostReviewModal({ spotId }) {
             {err && err.map(e => (
                 <p className="errors">{e}</p>
             ))}
-            <textarea required placeholder="Leave your review here..." value={review} onChange={(e) => setReview(e.target.value)}></textarea>
+            <textarea required minLength='10' placeholder="Leave your review here..." value={review} onChange={(e) => setReview(e.target.value)}></textarea>
             <StarRating rating={rating} setRating={setRating} />
             <button disabled={review.length < 10 || rating === 0} type='submit'>Submit Your Review</button>
         </form>

@@ -85,15 +85,15 @@ export const getSpotDetails = (spotId) => async (dispatch) => {
     const res = await fetch(`/api/spots/${spotId}`);
     const data = await res.json();
 
-    
-        dispatch(viewSpot(data));
-    
+
+    dispatch(viewSpot(data));
+
 
     return data;
 }
 
 // Create new spot thunk
-export const createSpot = (spot) => async (dispatch) => {
+export const createSpot = (spot, imageArr) => async (dispatch) => {
     const res = await csrfFetch('/api/spots', {
         method: 'POST',
         body: JSON.stringify(spot)
@@ -101,8 +101,20 @@ export const createSpot = (spot) => async (dispatch) => {
 
     const data = await res.json();
 
+
+
+
+
+    for (let img of imageArr) {
+        await csrfFetch(`/api/spots/${data.id}/images`, {
+            method: 'POST',
+            body: JSON.stringify(img)
+        });
+    }
+
     dispatch(addSpot(data));
-    return data;
+    return data.id;
+
 }
 
 // Update a spot thunk
@@ -136,16 +148,16 @@ const initialState = { allSpots: {} };
 // reducer
 const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_ALL_SPOTS: 
-            return {...state, allSpots: {...action.spots}};
+        case GET_ALL_SPOTS:
+            return { ...state, allSpots: { ...action.spots } };
         case GET_SPOT_DETAILS:
-            return { ...state, allSpots: {...state.allSpots}, singleSpot: {...action.spot} };
+            return { ...state, allSpots: { ...state.allSpots }, singleSpot: { ...action.spot } };
         case CREATE_NEW_SPOT:
-            return {...state, allSpots: {...state.allSpots, [action.spot.id]: action.spot}};
+            return { ...state, allSpots: { ...state.allSpots, [action.spot.id]: action.spot } };
         case UPDATE_SPOT:
-            return {...state, allSpots: {...state.allSpots, [action.spot.id]: action.spot}, singleSpot: {...state.singleSpot}}
+            return { ...state, allSpots: { ...state.allSpots, [action.spot.id]: action.spot }, singleSpot: { ...state.singleSpot } }
         case DELETE_SPOT: {
-            const newState = {allSpots: {...state.allSpots}};
+            const newState = { allSpots: { ...state.allSpots } };
             delete newState.allSpots[action.spotId];
             return newState;
         }
