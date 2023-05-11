@@ -6,6 +6,8 @@ import PostReviewModal from '../PostReviewModal';
 function ReviewList({ reviews, spot }) {
     const sessionUser = useSelector(state => state.session.user);
 
+    if (!reviews) return null;
+
     reviews.sort((revA, revB) => -1 * (Date.parse(revA.updatedAt) - Date.parse(revB.updatedAt)));
 
     const getDate = (date) => {
@@ -19,7 +21,7 @@ function ReviewList({ reviews, spot }) {
     return (
         <div id='reviews'>
             {sessionUser && reviews && !reviews.find(review => review.userId === sessionUser.id) && sessionUser.id !== spot.ownerId && (
-                <OpenModalButton modalComponent={<PostReviewModal />} buttonText='Post Your Review' />
+                <OpenModalButton modalComponent={<PostReviewModal spotId={spot.id} />} buttonText='Post Your Review'  />
             )}
             {reviews && reviews.map(review => {
                 return (
