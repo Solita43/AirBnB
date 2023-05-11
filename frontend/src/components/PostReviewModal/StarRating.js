@@ -35,6 +35,7 @@ const StarRating = ({ rating, setRating }) => {
         <div>
           <i onMouseEnter={(e) => setActiveRating(5)} className={`fa-${rating >= 5 || activeRating >= 5 ? 'solid' : 'regular'} fa-star`} onMouseLeave={(e) => setActiveRating(rating)} onClick={(e) => setRating(5)}></i>
         </div>
+        <p>Stars</p>
       </div>
     </>
   );
