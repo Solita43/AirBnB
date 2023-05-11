@@ -3,16 +3,25 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import * as spotsActions from '../../store/spots';
 import './SpotDetailsPage.css';
+import { getReviewsForSpot } from '../../store/reviews';
+import OpenModalButton from '../OpenModalButton';
+import PostReviewModal from '../PostReviewModal';
+import DeleteReviewModal from '../DeleteReviewModal';
+
 
 function SpotDetailsPage() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
+    const sessionUser = useSelector(state => state.session.user);
     const spot = useSelector(state => state.spots.singleSpot);
+    const reviewsObj = useSelector(state => state.reviews.spot);
+    const reviews = reviewsObj ? Object.values(reviewsObj) : null;
 
 
     useEffect(() => {
 
         dispatch(spotsActions.getSpotDetails(spotId));
+        dispatch(getReviewsForSpot(spotId))
 
     }, [dispatch])
 
@@ -22,13 +31,29 @@ function SpotDetailsPage() {
 
     }
 
-    if (!spot) return null;
+    if (!spot || !spot.SpotImages) return null;
 
     const spotImageArr = spot.SpotImages;
     const previewImage = spotImageArr.find((image) => image.preview);
     const images = spotImageArr.filter(image => !image.preview);
 
+    let reviewCount;
+    if (spot.numReviews === 1) {
+        reviewCount = `${spot.numReviews} Review`
+    } else if (spot.numReviews > 1) {
+        reviewCount = `${spot.numReviews} Reviews`
+    }
 
+    reviews?.sort((revA, revB) => -1 * (Date.parse(revA.updatedAt) - Date.parse(revB.updatedAt)));
+
+    const getDate = (date) => {
+        const obj = new Date(date);
+        const month = obj.toDateString().split(' ')[1]
+        const year = obj.getFullYear();
+        return `${month}, ${year}`;
+    }
+
+    const rating = spot.avgStarRating ? spot.avgStarRating.toFixed(2) : 'New';
 
     return (
         <div id='spot-details'>
@@ -38,7 +63,7 @@ function SpotDetailsPage() {
                 <img src={previewImage.url} alt='Preview Image' id='previewImg'></img>
                 <div id='smaller-images'>
                     {images.map((image, idx) => {
-                        if (idx < 4) return (<img src={image.url} key={image.id}></img>)
+                        if (idx < 4) return (<img src={image.url} key={image.id} className='detail-images'></img>)
                     })}
                 </div>
             </div>
@@ -49,10 +74,31 @@ function SpotDetailsPage() {
                 </div>
                 <div id='callout'>
                     <h3>${spot.price} night</h3>
-                    <h4>{spot.avgStarRating ? spot.avgStarRating: 'New'}</h4>
+                    <p><i className="fa-solid fa-star"></i>{rating}   {reviewCount && (<><i className="fa-solid fa-circle" style={{ fontSize: '3px' }}></i> {reviewCount}</>)}</p>
                     <button id='reserve' onClick={handleClick}>Reserve</button>
                 </div>
             </div>
+            <div id='details-reviews'>
+                <h3><i className="fa-solid fa-star"></i> {rating} {reviewCount && (<><i className="fa-solid fa-circle" style={{ fontSize: '3px' }}></i> {reviewCount}</>)}</h3>
+            </div>
+            <div id='reviews'>
+            {sessionUser && reviews && !reviews.find(review => review.userId === sessionUser.id) && sessionUser.id !== spot.ownerId && (
+                <OpenModalButton modalComponent={<PostReviewModal spotId={spot.id} />} buttonText='Post Your Review'  />
+            )}
+            {reviews && reviews.map(review => {
+                return (
+                    <div className='review' key={`${review.id}`}>
+                        <h5>{review.User.firstName}</h5>
+                        <p>{getDate(review.updatedAt)}</p>
+                        <p>{review.review}</p>
+                        {review.userId === sessionUser.id && (
+                            <OpenModalButton modalComponent={<DeleteReviewModal reviewId={review.id} />} buttonText='Delete' />
+                        )}
+                    </div>
+                )
+            })}
+            {!reviews && !reviews.length && sessionUser && sessionUser.id !== spot.ownerId ? (<p>Be the first to post a review!</p>) : null}
+        </div>
         </div>
     );
 }

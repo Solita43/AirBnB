@@ -22,7 +22,14 @@
 #smaller-images {
     display: flex;
     flex-wrap: wrap;
-    width: 25%;
-    height: 25%;
+    width: 49%;
+    height: 400px;
+    justify-content: center;
+    border: red solid 3px;
+}
+
+.detail-images {
+    width: 48%;
+    height: 49%;
     object-fit: cover;
 }

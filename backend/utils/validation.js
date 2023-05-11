@@ -57,7 +57,7 @@ const validateReviewEdits = (req, _res, next) => {
 
 
 const validateSpotEdits = (req, _res, next) => {
-    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    const { address, city, state, country, name, description, price } = req.body;
     const errors = {};
 
     if (address === "" || address === " ") errors.address = "Street address is required";
@@ -67,10 +67,6 @@ const validateSpotEdits = (req, _res, next) => {
     if (state === "" || state === " ") errors.state = "State is required";
 
     if (country === "" || country === " ") errors.country = "Country is required";
-
-    if (lat > 90 || lat < -90) errors.lat = "Latitude is not valid";
-
-    if (lng > 180 || lng < -180) errors.lng = "Longitude is not valid";
 
     if (name) {
         if (name.length > 50) errors.name = "Name must be less than 50 characters";
