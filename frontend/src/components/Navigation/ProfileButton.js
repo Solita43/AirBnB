@@ -13,7 +13,7 @@ function ProfileButton({ user }) {
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
     const history = useHistory();
-    
+
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
@@ -48,8 +48,9 @@ function ProfileButton({ user }) {
 
     return (
         <>
-            <button className='user-icon' onClick={openMenu}>
-                <i className="fa-solid fa-user"></i>
+            <button className='menu-button' onClick={openMenu}>
+                <i class="fa-solid fa-bars"></i>
+                <i class="fa-solid fa-circle-user"></i>
             </button>
             <ul className={ulClassName} ref={ulRef}>
                 {user ? (
@@ -67,7 +68,7 @@ function ProfileButton({ user }) {
                         <OpenModalMenuItem itemText='Log In' modalComponent={<LoginFormModal />} onItemClick={closeMenu} />
                         <OpenModalMenuItem itemText='Sign Up' modalComponent={<SignupFormModal />} onItemClick={closeMenu} />
                         <li>
-                           <DemoUserLoginButton closeMenu={closeMenu} /> 
+                            <DemoUserLoginButton closeMenu={closeMenu} />
                         </li>
                     </>
                 )}

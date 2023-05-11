@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-function CreateNewSpotButton() {
+function CreateNewSpotButton({ sessionUser }) {
     const history = useHistory();
 
     const handleClick = (e) => {
@@ -10,7 +10,7 @@ function CreateNewSpotButton() {
     }
 
     return (
-        <li>
+        <li id='header_create_spot' className={!sessionUser ? 'hidden' : null}>
             <button onClick={handleClick}>Create a New Spot</button>
         </li>
     );

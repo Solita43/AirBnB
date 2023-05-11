@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import CreateNewSpotButton from "./CreateNewSpotButton";
+import logo from './Logo.jpg'
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -12,14 +13,15 @@ function Navigation({ isLoaded }) {
     <ul className="header">
       <li id='home'>
         <NavLink exact to="/">
-          Home
+          <div id='logo'>
+            <img src={logo} alt='logo' id='logo_img'></img>
+            <h1>atrixbnb</h1>
+          </div>
         </NavLink>
       </li>
-      {sessionUser && (
-        <CreateNewSpotButton />
-      )}
+        <CreateNewSpotButton sessionUser={sessionUser} />
       {isLoaded && (
-        <li className='profile-menu'>
+        <li className={sessionUser ? 'profile-menu': 'profile-menu logged-out'}>
           <ProfileButton user={sessionUser} />
         </li>
       )}
