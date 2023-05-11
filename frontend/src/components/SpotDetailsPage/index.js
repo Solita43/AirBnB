@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as spotsActions from '../../store/spots';
 import './SpotDetailsPage.css';
 import { getReviewsForSpot } from '../../store/reviews';
-import OpenModalButton from '../OpenModalButton';
-import PostReviewModal from '../PostReviewModal';
+
+import ReviewList from './ReviewList';
 
 function SpotDetailsPage() {
     const { spotId } = useParams();
@@ -13,7 +13,6 @@ function SpotDetailsPage() {
     const spot = useSelector(state => state.spots.singleSpot);
     const reviewsObj = useSelector(state => state.reviews.spot);
     const reviews = reviewsObj ? Object.values(reviewsObj) : null;
-    const sessionUser = useSelector(state => state.session.user);
 
 
     useEffect(() => {
@@ -42,12 +41,7 @@ function SpotDetailsPage() {
         reviewCount = `${spot.numReviews} Reviews`
     }
 
-    const getDate = (date) => {
-        const obj = new Date(date);
-        const month = obj.toDateString().split(' ')[1]
-        const year = obj.getFullYear();
-        return `${month}, ${year}`;
-    }
+   
 
     return (
         <div id='spot-details'>
@@ -75,21 +69,7 @@ function SpotDetailsPage() {
             <div id='details-reviews'>
                 <h3><i className="fa-solid fa-star"></i> {spot.avgStarRating ? spot.avgStarRating : 'New'} {reviewCount && (<><i className="fa-solid fa-circle" style={{ fontSize: '3px' }}></i> {reviewCount}</>)}</h3>
             </div>
-            <div id='reviews'>
-                {sessionUser && !reviews.find(review => review.userId === sessionUser.id) && sessionUser.id !== spot.ownerId && (
-                    <OpenModalButton modalComponent={PostReviewModal} buttonText='Post Your Review' />
-                )}
-                {reviews && reviews.map(review => {
-                    return (
-                        <div className='review' key={`${review.id}`}>
-                            <h5>{review.User.firstName}</h5>
-                            <p>{getDate(review.updatedAt)}</p>
-                            <p>{review.review}</p>
-                        </div>
-                    )
-                })}
-                {!reviews.length && sessionUser && sessionUser.id !== spot.ownerId ? (<p>Be the first to post a review!</p>): null}
-            </div>
+            <ReviewList reviews={reviews} spot={spot} />
         </div>
     );
 }

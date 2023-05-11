@@ -5,7 +5,7 @@ import { useModal } from "../../context/Modal";
 
 function DeleteSpotModal({ spotId }) {
     const dispatch = useDispatch();
-    const {closeModal} = useModal();
+    const { closeModal } = useModal();
 
     const handleDelete = () => {
         return dispatch(deleteSpot(spotId));

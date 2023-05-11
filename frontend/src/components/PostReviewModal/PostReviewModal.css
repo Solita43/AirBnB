@@ -1,0 +1,12 @@
+/* .rating-input .filled {
+  background-color: black;
+}
+
+.rating-input .empty {
+  background-color: white;
+} */
+
+.rating-input {
+  display: flex;
+  /* margin-right: 4px; */
+}
