@@ -6,6 +6,7 @@ import './SpotDetailsPage.css';
 import { getReviewsForSpot } from '../../store/reviews';
 import OpenModalButton from '../OpenModalButton';
 import PostReviewModal from '../PostReviewModal';
+import DeleteReviewModal from '../DeleteReviewModal';
 
 
 function SpotDetailsPage() {
@@ -90,6 +91,9 @@ function SpotDetailsPage() {
                         <h5>{review.User.firstName}</h5>
                         <p>{getDate(review.updatedAt)}</p>
                         <p>{review.review}</p>
+                        {review.userId === sessionUser.id && (
+                            <OpenModalButton modalComponent={<DeleteReviewModal reviewId={review.id} />} buttonText='Delete' />
+                        )}
                     </div>
                 )
             })}

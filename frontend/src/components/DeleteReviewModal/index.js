@@ -1,13 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 import { useDispatch } from 'react-redux';
 import { useModal } from "../../context/Modal";
+import { deleteReview } from "../../store/reviews";
 
 function DeleteReviewModal({ reviewId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
+    const [errors, setErrors] = useState('');
 
     const handleDelete = () => {
-        return dispatch().then(() => closeModal());
+        return dispatch(deleteReview(reviewId)).then(() => closeModal()).catch(async (res) => {
+            const data = await res.json();
+            if (data.message) {
+                setErrors(data.message);
+            }
+        });
+    }
+
+    if (errors) {
+        window.alert(errors);
     }
 
     return (
