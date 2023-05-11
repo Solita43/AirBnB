@@ -11,7 +11,6 @@ function PostReviewModal({ spotId }) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
     const [rating, setRating] = useState(0);
-    const [isSubmitted, setIsSubmitted] = useState(false);
     const [errors, setErrors] = useState({});
     let err;
 
@@ -24,23 +23,18 @@ function PostReviewModal({ spotId }) {
         dispatch(postReview(spotId, {
             review,
             stars: rating
-        })).then(() => setIsSubmitted(true)).catch(async res => {
+        })).then(() => closeModal()).catch(async res => {
             const data = await res.json();
             if (data && data.errors) {
                 setErrors(data.errors);
             }
         })
 
-        if (isSubmitted) {
-            setIsSubmitted(false);
-            closeModal()
-        } else {
-            if (Object.values(errors).length) {
-                err = Object.values(errors);
-            }
-        }
     }
-
+    
+    if (Object.values(errors).length) {
+        err = Object.values(errors);
+    }
 
     return (
         <form id='post-review' onSubmit={handleSubmit}>
