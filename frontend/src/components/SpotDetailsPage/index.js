@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as spotsActions from '../../store/spots';
 import './SpotDetailsPage.css';
 import { getReviewsForSpot } from '../../store/reviews';
+import OpenModalButton from '../OpenModalButton';
+import PostReviewModal from '../PostReviewModal';
 
-import ReviewList from './ReviewList';
 
 function SpotDetailsPage() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
+    const sessionUser = useSelector(state => state.session.user);
     const spot = useSelector(state => state.spots.singleSpot);
     const reviewsObj = useSelector(state => state.reviews.spot);
     const reviews = reviewsObj ? Object.values(reviewsObj) : null;
@@ -41,7 +43,16 @@ function SpotDetailsPage() {
         reviewCount = `${spot.numReviews} Reviews`
     }
 
-   
+    reviews?.sort((revA, revB) => -1 * (Date.parse(revA.updatedAt) - Date.parse(revB.updatedAt)));
+
+    const getDate = (date) => {
+        const obj = new Date(date);
+        const month = obj.toDateString().split(' ')[1]
+        const year = obj.getFullYear();
+        return `${month}, ${year}`;
+    }
+
+    const rating = spot.avgStarRating ? spot.avgStarRating.toFixed(2) : 'New';
 
     return (
         <div id='spot-details'>
@@ -62,14 +73,28 @@ function SpotDetailsPage() {
                 </div>
                 <div id='callout'>
                     <h3>${spot.price} night</h3>
-                    <p><i className="fa-solid fa-star"></i>{spot.avgStarRating ? spot.avgStarRating : 'New'}   {reviewCount && (<><i className="fa-solid fa-circle" style={{ fontSize: '3px' }}></i> {reviewCount}</>)}</p>
+                    <p><i className="fa-solid fa-star"></i>{rating}   {reviewCount && (<><i className="fa-solid fa-circle" style={{ fontSize: '3px' }}></i> {reviewCount}</>)}</p>
                     <button id='reserve' onClick={handleClick}>Reserve</button>
                 </div>
             </div>
             <div id='details-reviews'>
-                <h3><i className="fa-solid fa-star"></i> {spot.avgStarRating ? spot.avgStarRating : 'New'} {reviewCount && (<><i className="fa-solid fa-circle" style={{ fontSize: '3px' }}></i> {reviewCount}</>)}</h3>
+                <h3><i className="fa-solid fa-star"></i> {rating} {reviewCount && (<><i className="fa-solid fa-circle" style={{ fontSize: '3px' }}></i> {reviewCount}</>)}</h3>
             </div>
-            <ReviewList reviews={reviews} spot={spot} />
+            <div id='reviews'>
+            {sessionUser && reviews && !reviews.find(review => review.userId === sessionUser.id) && sessionUser.id !== spot.ownerId && (
+                <OpenModalButton modalComponent={<PostReviewModal spotId={spot.id} />} buttonText='Post Your Review'  />
+            )}
+            {reviews && reviews.map(review => {
+                return (
+                    <div className='review' key={`${review.id}`}>
+                        <h5>{review.User.firstName}</h5>
+                        <p>{getDate(review.updatedAt)}</p>
+                        <p>{review.review}</p>
+                    </div>
+                )
+            })}
+            {!reviews && sessionUser && sessionUser.id !== spot.ownerId ? (<p>Be the first to post a review!</p>) : null}
+        </div>
         </div>
     );
 }
