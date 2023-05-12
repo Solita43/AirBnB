@@ -1,3 +1,18 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  width: 100%;
+  padding: 1rem 2rem;
+  align-items: center;
+  height: 70px;
+  border-bottom: solid #cccccc 2px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: white;
+}
+
 #logo-text {
   font-family: "Urbanist", sans-serif;
   color: #ff385c;
@@ -59,16 +74,7 @@ button.menu-button {
   gap: 2px;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  margin: auto;
-  width: 100%;
-  padding: 1rem 2rem;
-  align-items: center;
-  height: 70px;
-  border-bottom: solid #cccccc 2px;
-}
+
 
 .profile-menu {
   position: relative;
