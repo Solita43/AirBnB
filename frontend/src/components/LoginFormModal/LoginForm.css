@@ -1,7 +1,7 @@
 button#demo-login {
   border: none;
   background-color: white;
-  color: #00525e;
+  color: var(--teal);
   text-decoration: underline;
   cursor: pointer;
   font-size: 14px;
@@ -21,7 +21,7 @@ button#demo-login {
 #login-button {
   padding: 10px;
   font-size: 11px;
-  background-color: #ff5a5f;
+  background-color: var(--red);
   cursor: pointer;
   border: solid black 3px;
   box-shadow: black 3px 2px .7px;
@@ -32,7 +32,7 @@ button#demo-login {
   box-shadow: black 0.5px .5px 1px;
   padding: 0 4px;
   font-size: 12px;
-  background-color: #E8F0FE;
+  background-color: var(--light-teal);
 }
 
 .login_input:focus-visible {

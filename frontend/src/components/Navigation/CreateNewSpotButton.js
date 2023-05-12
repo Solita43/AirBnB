@@ -11,7 +11,7 @@ function CreateNewSpotButton({ sessionUser }) {
 
     return (
         <li id='header_create_spot' className={!sessionUser ? 'hidden' : null}>
-            <button onClick={handleClick}>Create a New Spot</button>
+            <button onClick={handleClick} id='header_button'>Create a New Spot</button>
         </li>
     );
 }

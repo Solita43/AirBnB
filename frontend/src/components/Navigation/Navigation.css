@@ -6,7 +6,7 @@
   padding: 1rem 2rem;
   align-items: center;
   height: 70px;
-  border-bottom: solid #cccccc 2px;
+  border-bottom: solid var(--light-gray) 2px;
   position: sticky;
   top: 0;
   z-index: 2;
@@ -22,20 +22,25 @@
 
 i.fa-solid.fa-bars {
   align-self: center;
+  font-size: 13px;
 }
 
 button.menu-button {
   font-weight: bold;
   background-color: white;
   border-radius: 50px;
-  border: solid darkgrey 1px;
+  border: solid var(--light-gray) 1px;
   display: flex;
-  color: #999999;
+  color: var(--dark-gray);
   justify-content: center;
   padding: 4px 9px;
   gap: 6px;
   font-size: 1.4rem;
   cursor: pointer;
+}
+
+.menu-button:hover {
+  box-shadow: var(--light-gray) 2px 1px 5px;
 }
 
 #logo {
@@ -53,9 +58,17 @@ button.menu-button {
   padding: 0 20px;
 }
 
+#header_button {
+  color: var(--teal);
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+}
+
 #user_dropdown_info,
 #user_dropdown_manageSpots {
-  border-bottom: #999999 solid 2px;
+  border-bottom: var(--dark-gray) solid 2px;
   padding-bottom: 5px;
   width: 100%;
 }
@@ -66,6 +79,7 @@ button.menu-button {
 
 #user_dropdown_manageSpots > a {
   color: black;
+  font-weight: bold;
 }
 
 #user_dropdown_info {
@@ -73,8 +87,6 @@ button.menu-button {
   flex-direction: column;
   gap: 2px;
 }
-
-
 
 .profile-menu {
   position: relative;
@@ -94,9 +106,11 @@ button.menu-button {
   margin: auto;
   font-size: 11px;
   text-align: left;
-  border: solid black 2px;
-  padding: 4px 10px;
-  width: 150%;
+  border: var(--light-gray) 0.08rem solid;
+  box-shadow: var(--dark-gray) 5px 1px 6px;
+  border-radius: 10px;
+  padding: 0.5rem 0;
+  width: 250%;
   top: 105%;
   right: 5%;
   z-index: 2;
@@ -117,18 +131,27 @@ button.menu-button {
   width: fit-content;
   font-size: 12px;
   padding: 3px;
-  background-color: #999999;
+  background-color: var(--dark-gray);
   border-radius: 15px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .hidden {
   display: none;
 }
 
-#modal_item {
+.modal_item {
   cursor: pointer;
+  font-size: 12px;
+  padding: 5px 0 5px 10px;
+  font-weight: 300;
 }
 
+.modal_item:hover {
+  background-color: #dddbdb;
+}
 
-
+#sign-up-item {
+  font-weight: 600;
+}

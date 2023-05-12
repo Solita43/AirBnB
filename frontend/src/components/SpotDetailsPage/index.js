@@ -31,7 +31,7 @@ function SpotDetailsPage() {
 
     }
 
-    if (!spot || !spot.SpotImages) return null;
+    if (!spot || !spot.SpotImages || !reviewsObj) return null;
 
     const spotImageArr = spot.SpotImages;
     const previewImage = spotImageArr.find((image) => image.preview);
@@ -91,7 +91,7 @@ function SpotDetailsPage() {
                         <h5>{review.User.firstName}</h5>
                         <p>{getDate(review.updatedAt)}</p>
                         <p>{review.review}</p>
-                        {review.userId === sessionUser.id && (
+                        { sessionUser && review.userId === sessionUser.id && (
                             <OpenModalButton modalComponent={<DeleteReviewModal reviewId={review.id} />} buttonText='Delete' />
                         )}
                     </div>
