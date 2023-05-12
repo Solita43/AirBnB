@@ -15,7 +15,7 @@ function Navigation({ isLoaded }) {
         <NavLink exact to="/">
           <div id='logo'>
             <img src={logo} alt='logo' id='logo_img'></img>
-            <h1>atrixbnb</h1>
+            <h1 id='logo-text'>atrixbnb</h1>
           </div>
         </NavLink>
       </li>

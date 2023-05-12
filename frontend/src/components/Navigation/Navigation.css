@@ -5,7 +5,7 @@
   text-decoration: none;
 }
 
-h1 {
+#logo-text {
   font-family: "Urbanist", sans-serif;
   color: #ff385c;
   font-weight: bolder;
@@ -26,6 +26,7 @@ button.menu-button {
   padding: 4px 9px;
   gap: 6px;
   font-size: 1.4rem;
+  cursor: pointer;
 }
 
 #logo {
@@ -43,8 +44,25 @@ button.menu-button {
   padding: 0 20px;
 }
 
-li {
-  list-style: none;
+#user_dropdown_info,
+#user_dropdown_manageSpots {
+  border-bottom: #999999 solid 2px;
+  padding-bottom: 5px;
+  width: 100%;
+}
+
+#user_dropdown_manageSpots {
+  padding-top: 3px;
+}
+
+#user_dropdown_manageSpots > a {
+  color: black;
+}
+
+#user_dropdown_info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .header {
@@ -73,18 +91,41 @@ li {
   position: absolute;
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin: auto;
-  font-size: 12px;
-  text-align: start;
+  font-size: 11px;
+  text-align: left;
+  border: solid black 2px;
+  padding: 4px 10px;
+  width: 150%;
+  top: 105%;
+  right: 5%;
+  z-index: 2;
+  background-color: white;
+  gap: 3px;
+}
+
+#user_dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: auto;
 }
 
 .logout {
   width: fit-content;
   font-size: 12px;
-  padding: 1px;
+  padding: 3px;
+  background-color: #999999;
+  border-radius: 15px;
+  cursor: pointer;
 }
 
 .hidden {
   display: none;
+}
+
+#modal_item {
+  cursor: pointer;
 }

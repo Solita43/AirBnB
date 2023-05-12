@@ -10,7 +10,7 @@ function DemoUserLoginButton({closeMenu}) {
     }
 
     return (
-        <button onClick={loginDemo} id="demo-login">Log In as Demo User</button>
+        <button onClick={loginDemo} id="demo-login">Demo User</button>
     );
 }
 
