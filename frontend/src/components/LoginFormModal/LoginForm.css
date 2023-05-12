@@ -1,26 +1,3 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-label {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  font-size: 11.5px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  width: 90%;
-
-}
-
 button#demo-login {
   border: none;
   background-color: white;
@@ -32,10 +9,7 @@ button#demo-login {
   padding-top: 8px;
 }
 
-button {
-  width: 100%;
-  margin-top: 5px;
-}
+
 
 #login-button:disabled {
   box-shadow: #6b6a6a 2.5px 2px 0.8px;

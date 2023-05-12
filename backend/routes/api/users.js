@@ -30,12 +30,6 @@ const validateSignup = [
         .not()
         .isEmail()
         .withMessage('Username cannot be an email.'),
-    check('username')
-        .custom(async function (value) {
-            const user = await User.find({ username: value })
-            return user.length === 0;
-        })
-        .withMessage('Username must be unique'),
     check('password')
         .exists({ checkFalsy: true })
         .isLength({ min: 6 })
