@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as spotActions from '../../store/spots';
 import OpenModalButton from '../OpenModalButton';
@@ -16,26 +16,34 @@ function SpotCard({ spot, update }) {
 
     }
 
+    const spotDetails = () => {
+        history.push(`/spotDetails/${spot.id}`)
+    }
+
     if (!spot) return null;
 
-    const rating = spot.avgRating? spot.avgRating.toFixed(2) : 'New';
+    const rating = spot.avgRating ? spot.avgRating.toFixed(2) : 'New';
 
     return (
-        <div className='spot-card'>
-            <NavLink to={`/spotDetails/${spot.id}`}>
-                <div className='tooltip img' data-tooltip={spot.name} style={{backgroundImage: `url(${spot.previewImage})`}}>
-                    {/* <img src={spot.previewImage} alt='Image preview of home' className='card-img'></img> */}
-                </div>
+        <div className='spot-card' onClick={spotDetails}>
+            <div className='tooltip' data-tooltip={spot.name}>
+                <img src={spot.previewImage} alt='Image preview of home' className='card-img'></img>
+            </div>
+
+            <div className="spot_card_info">
                 <div className="rating-location">
                     <p className="card-location">{spot.city}, {spot.state}</p>
-                    <p className="card-starRating"><i className="fa-solid fa-star" style={{color: '#0f0000'}}></i>{rating}</p>
+                    <div id='rating_card'>
+                        <i className="fa-solid fa-star" style={{ color: '#0f0000' }}></i>
+                        <p className="card-starRating">{rating}</p>
+                    </div>
                 </div>
-                <p className="card-price">{`$${spot.price} night`}</p>
-            </NavLink>
+                <p className="card-price"><span className='bold'>${spot.price}</span> night</p>
+            </div>
             {update && (
                 <>
                     <button onClick={handleUpdate}>Update</button>
-                    <OpenModalButton modalComponent={<DeleteSpotModal spotId={spot.id}/>} buttonText='Delete' />
+                    <OpenModalButton modalComponent={<DeleteSpotModal spotId={spot.id} />} buttonText='Delete' />
                 </>
             )}
         </div>

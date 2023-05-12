@@ -16,7 +16,7 @@ function ManageSpotsPage() {
     }, [])
     
     return (
-        <div id='user-spots'>
+        <div id='all-spots'>
             <h1>Manage Spots</h1>
             <CreateNewSpotButton />
             {isLoaded && (spots.map(spot => (
