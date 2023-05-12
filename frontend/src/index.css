@@ -7,4 +7,8 @@
   list-style: none;
 }
 
+.errors {
+  color: red;
+  font-size: 11px;
+}
 
