@@ -1,14 +1,8 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-}
-
 #logo-text {
   font-family: "Urbanist", sans-serif;
   color: #ff385c;
   font-weight: bolder;
+  font-size: 24px;
 }
 
 i.fa-solid.fa-bars {
@@ -32,11 +26,11 @@ button.menu-button {
 #logo {
   display: flex;
   align-items: center;
+  height: 2rem;
 }
 
 #logo_img {
-  width: 50px;
-  height: 50px;
+  height: 2rem;
 }
 
 #header_create_spot {
@@ -67,10 +61,10 @@ button.menu-button {
 
 .header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   margin: auto;
   width: 100%;
-  padding: 20px;
+  padding: 1rem 2rem;
   align-items: center;
   height: 70px;
   border-bottom: solid #cccccc 2px;

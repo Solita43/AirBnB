@@ -1,0 +1,11 @@
+#user-spots {
+    display: flex;
+    width: 100vw;
+    justify-content: space-evenly;
+    margin: auto;
+    flex-wrap: wrap;
+    padding: 30px;
+    gap: 20px;
+    border: solid red 3px;
+    height: 100vw;
+}

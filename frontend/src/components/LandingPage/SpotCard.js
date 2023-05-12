@@ -23,8 +23,8 @@ function SpotCard({ spot, update }) {
     return (
         <div className='spot-card'>
             <NavLink to={`/spotDetails/${spot.id}`}>
-                <div className='tooltip' data-tooltip={spot.name}>
-                    <img src={spot.previewImage} alt='Image preview of home' className='card-img'></img>
+                <div className='tooltip img' data-tooltip={spot.name} style={{backgroundImage: `url(${spot.previewImage})`}}>
+                    {/* <img src={spot.previewImage} alt='Image preview of home' className='card-img'></img> */}
                 </div>
                 <div className="rating-location">
                     <p className="card-location">{spot.city}, {spot.state}</p>

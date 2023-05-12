@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import * as spotActions from '../../store/spots';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { csrfFetch } from "../../store/csrf";
 
 function CreateNewSpotForm() {
     const [country, setCountry] = useState('');
@@ -39,10 +38,10 @@ function CreateNewSpotForm() {
 
         const validImages = [];
         validImages.push(previewImage);
-        if (image1.url) validImages.push(image1);
-        if (image2.url) validImages.push(image2);
-        if (image3.url) validImages.push(image3);
-        if (image4.url) validImages.push(image4);
+        validImages.push(image1);
+        validImages.push(image2);
+        validImages.push(image3);
+        validImages.push(image4);
 
         setErrors({});
 
@@ -126,7 +125,7 @@ function CreateNewSpotForm() {
 
                 <div id='new-spot-photos'>
                     <h2>Liven up your spot with photos</h2>
-                    <p>Submit a link to at least one photo to publish your spot.</p>
+                    <p>Submit a link to five photos to publish your spot.</p>
                     <input type="url" placeholder="Preview Image Url" onChange={(e) => {
                         setErrors((prev) => {
                             const newErr = { ...prev };
@@ -160,7 +159,7 @@ function CreateNewSpotForm() {
                             const obj = makeImageObj(e.target.value, false);
                             setImage1(obj)
                         }
-                    }}>
+                    }} required>
                     </input>
                     {errors.Image1 && (<p className="errors">{errors.Image1}</p>)}
 
@@ -179,7 +178,7 @@ function CreateNewSpotForm() {
                             const obj = makeImageObj(e.target.value, false);
                             setImage2(obj)
                         }
-                    }}>
+                    }} required>
                     </input>
                     {errors.Image2 && (<p className="errors">{errors.Image2}</p>)}
 
@@ -198,7 +197,7 @@ function CreateNewSpotForm() {
                             const obj = makeImageObj(e.target.value, false);
                             setImage3(obj)
                         }
-                    }}>
+                    }} required>
                     </input>
                     {errors.Image3 && (<p className="errors">{errors.Image3}</p>)}
 
@@ -217,7 +216,7 @@ function CreateNewSpotForm() {
                             const obj = makeImageObj(e.target.value, false);
                             setImage4(obj)
                         }
-                    }}>
+                    }} required>
                     </input>
                     {errors.Image4 && (<p className="errors">{errors.Image4}</p>)}
 

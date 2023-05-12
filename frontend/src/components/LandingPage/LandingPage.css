@@ -1,52 +1,64 @@
 #all-spots {
-    display: flex;
-    justify-content: space-evenly;
+  display: flex;
+  width: 100vw;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  row-gap: 20px;
+  height: 100vw;
+  justify-content: center;
+  align-content: flex-start;
+  margin: auto;
+  padding: 20px;
+}
+
+
+.img {
+  width: 100%;
+  height: 220px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 10px;
 }
 
 .spot-card {
-    display: flex;
-    flex-direction: column;
-    max-width: 23%;
-    border: solid red 3px;
-
+  display: flex;
+  flex-direction: column;
+  width: 23%;
+  height: 300px;
 }
 
-.card-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+.card-starRating {
+  margin-left: auto;
 }
 
 .rating-location {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: center;
 }
 
 .tooltip {
-    position: relative;
-    cursor: pointer;
-    
+  position: relative;
+  cursor: pointer;
 }
 
 .tooltip::before {
-    position: absolute;
-    z-index: 2;
-    width: 140px;
-    display: none;
-    left: calc(50%);
-    top: calc(50%);
-    text-align: center;
-    color: #ffffff;
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 8px;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: bold;
-    content: attr(data-tooltip);
-
+  position: absolute;
+  z-index: 2;
+  width: 140px;
+  display: none;
+  left: calc(50%);
+  top: calc(50%);
+  text-align: center;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  content: attr(data-tooltip);
 }
 
 .tooltip:hover::before {
-    display: inline-block;
+  display: inline-block;
 }
-
