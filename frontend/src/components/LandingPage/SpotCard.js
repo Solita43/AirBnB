@@ -10,6 +10,7 @@ function SpotCard({ spot, update }) {
     const dispatch = useDispatch();
 
     const handleUpdate = async (e) => {
+        e.stopPropagation();
         e.preventDefault();
         dispatch(spotActions.viewSpot(spot));
         history.push(`/spots/${spot.id}/edit`)
@@ -41,13 +42,13 @@ function SpotCard({ spot, update }) {
                     </div>
                     <p className="card-price"><span className='bold'>${spot.price.toFixed(2)}</span> night</p>
                 </div>
-            </div>
             {update && (
                 <div id='update_delete_spot'>
                     <button onClick={handleUpdate} className="manage_update">Update</button>
                     <OpenModalButton modalComponent={<DeleteSpotModal spotId={spot.id} />} buttonText='Delete' addClass='manage_delete'/>
                 </div>
             )}
+            </div>
         </div>
     );
 }
