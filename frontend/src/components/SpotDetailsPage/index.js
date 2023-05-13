@@ -23,7 +23,7 @@ function SpotDetailsPage() {
         dispatch(spotsActions.getSpotDetails(spotId));
         dispatch(getReviewsForSpot(spotId))
 
-    }, [dispatch])
+    }, [dispatch, spotId])
 
     const handleClick = (e) => {
         e.preventDefault();

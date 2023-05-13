@@ -25,26 +25,28 @@ function SpotCard({ spot, update }) {
     const rating = spot.avgRating ? spot.avgRating.toFixed(2) : 'New';
 
     return (
-        <div className='spot-card' onClick={spotDetails}>
-            <div className='tooltip' data-tooltip={spot.name}>
-                <img src={spot.previewImage} alt='Image preview of home' className='card-img'></img>
-            </div>
-
-            <div className="spot_card_info">
-                <div className="rating-location">
-                    <p className="card-location">{spot.city}, {spot.state}</p>
-                    <div id='rating_card'>
-                        <i className="fa-solid fa-star" style={{ color: '#0f0000' }}></i>
-                        <p className="card-starRating">{rating}</p>
-                    </div>
+        <div className='spot-card'>
+            <div className="main_card" onClick={spotDetails}>
+                <div className='tooltip' data-tooltip={spot.name}>
+                    <img src={spot.previewImage} alt='' className='card-img'></img>
                 </div>
-                <p className="card-price"><span className='bold'>${spot.price}</span> night</p>
+
+                <div className="spot_card_info">
+                    <div className="rating-location">
+                        <p className="card-location">{spot.city}, {spot.state}</p>
+                        <div id='rating_card'>
+                            <i className="fa-solid fa-star" style={{ color: '#0f0000' }}></i>
+                            <p className="card-starRating">{rating}</p>
+                        </div>
+                    </div>
+                    <p className="card-price"><span className='bold'>${spot.price.toFixed(2)}</span> night</p>
+                </div>
             </div>
             {update && (
-                <>
-                    <button onClick={handleUpdate}>Update</button>
-                    <OpenModalButton modalComponent={<DeleteSpotModal spotId={spot.id} />} buttonText='Delete' />
-                </>
+                <div id='update_delete_spot'>
+                    <button onClick={handleUpdate} className="manage_update">Update</button>
+                    <OpenModalButton modalComponent={<DeleteSpotModal spotId={spot.id} />} buttonText='Delete' addClass='manage_delete'/>
+                </div>
             )}
         </div>
     );

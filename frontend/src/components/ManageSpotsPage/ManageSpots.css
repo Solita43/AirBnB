@@ -1,11 +1,54 @@
-#user-spots {
-    display: flex;
-    width: 100vw;
-    justify-content: space-evenly;
-    margin: auto;
-    flex-wrap: wrap;
-    padding: 30px;
-    gap: 20px;
-    border: solid red 3px;
-    height: 100vw;
+#manage-spots {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin: auto;
+  padding: 1rem 2rem;
+  gap: 1rem;
+}
+
+#manage_create_spot {
+  width: 12rem;
+}
+
+#manage_button {
+  width: 100%;
+  margin-top: 5px;
+  padding: 0.2rem;
+  background-color: var(--teal);
+  color: white;
+  border: solid 1px black;
+  box-shadow: black 3px 2px 7px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 0.8rem;
+}
+
+#update_delete_spot {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.6em;
+  width: 60%;
+  padding: 0.7em 0.3em 0.3em;
+}
+
+.manage_update {
+  padding: 0.2em;
+  background-color: var(--teal);
+  color: white;
+  font-weight: bold;
+  border-radius: 0.4em;
+  border: solid black 1px;
+  box-shadow: black 0.2em 0.2em 0.2em;
+}
+
+.manage_delete {
+  padding: 0.2em;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border-radius: 0.4em;
+  border: solid black 1px;
+  box-shadow: black 0.2em 0.2em 0.2em;
 }
