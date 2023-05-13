@@ -94,7 +94,7 @@ function CreateNewSpotForm() {
                     <div id='city_state'>
                         <label>
                             City
-                            <input id='city' type='text' placeholder="City" required value={city} onChange={(e) => setCity(e.target.value)}></input><span id='comma'>,</span>
+                            <input id='city' type='text' placeholder="City" required value={city} onChange={(e) => setCity(e.target.value)}></input>
                         </label>
                         {errors.city && (<p className="errors">{errors.city}</p>)}
                         <label id="state_label">
@@ -122,7 +122,7 @@ function CreateNewSpotForm() {
                 <div id='new-spot-price'>
                     <h2>Set a base price for your spot</h2>
                     <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
-                    <p style={{fontWeight: 'bold', fontSize: '1.1em'}}>$ <input id='form_price' placeholder='Price per night (USD)' type="text" required value={price} onChange={(e) => setPrice(e.target.value)}></input> </p>
+                    <p style={{ fontWeight: 'bold', fontSize: '1.1em' }}>$ <input id='form_price' placeholder='Price per night (USD)' type="text" required value={price} onChange={(e) => setPrice(e.target.value)}></input> </p>
                     {errors.price && (<p className="errors">{errors.price}</p>)}
                 </div>
 

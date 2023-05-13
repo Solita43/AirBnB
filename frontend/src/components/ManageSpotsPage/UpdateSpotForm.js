@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as spotActions from '../../store/spots';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 
 function UpdateSpotForm() {
+    const { spotId } = useParams();
     const spot = useSelector(state => state.spots.singleSpot);
     const [country, setCountry] = useState(spot.country);
     const [address, setAddress] = useState(spot.address);
@@ -16,6 +17,13 @@ function UpdateSpotForm() {
     const dispatch = useDispatch();
     const [isSubmitted, setIsSubmitted] = useState(false)
 
+    useEffect(() => {
+
+        dispatch(spotActions.getSpotDetails(spotId));
+
+    }, [dispatch, spotId])
+
+    if (!spot) return null;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -46,6 +54,14 @@ function UpdateSpotForm() {
         <>
             <form id='update_spot_form' onSubmit={handleSubmit}>
                 <h1 id='update_spot_title'>Update Your Spot</h1>
+                {errors.message && (<p className="errors">{errors.message}</p>)}
+                {errors.country && (<p className="errors">{errors.country}</p>)}
+                {errors.address && (<p className="errors">{errors.address}</p>)}
+                {errors.city && (<p className="errors">{errors.city}</p>)}
+                {errors.state && (<p className="errors">{errors.state}</p>)}
+                {errors.description && (<p className="errors">{errors.description}</p>)}
+                {errors.name && (<p className="errors">{errors.name}</p>)}
+                {errors.price && (<p className="errors">{errors.price}</p>)}
                 <div id='new-spot-location'>
                     <h3>Where's your place located?</h3>
                     <p>Guests will only get your exact address once they booked a reservation.</p>
@@ -61,7 +77,7 @@ function UpdateSpotForm() {
 
                         <label>
                             City
-                            <input type='text' id='city' required value={city} onChange={(e) => setCity(e.target.value)}></input><span id='comma'>,</span>
+                            <input type='text' id='city' required value={city} onChange={(e) => setCity(e.target.value)}></input>
                         </label>
                         <label id="state_label">
                             State

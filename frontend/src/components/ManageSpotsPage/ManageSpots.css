@@ -16,7 +16,7 @@
   width: 100%;
   margin-top: 5px;
   padding: 0.2rem;
-  background-color: var(--teal);
+  background-color: var(--button-teal);
   color: white;
   border: solid 1px black;
   box-shadow: black 3px 2px 7px;
