@@ -52,7 +52,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        <button id='login-button' type="submit" disabled={credential.length < 4 || password.length < 6}>Log In</button>
+        <button className='modal_submit' type="submit" disabled={credential.length < 4 || password.length < 6}>Log In</button>
       </form>
       <DemoUserLoginButton closeMenu={closeModal} />
     </>
