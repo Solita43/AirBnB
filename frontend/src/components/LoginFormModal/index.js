@@ -27,7 +27,7 @@ function LoginFormModal() {
 
   return (
     <>
-      <h3>Log In</h3>
+      <h3 id='login_title'>Log In</h3>
       {errors.credential && (
         <p className="errors">{errors.credential}</p>
       )}

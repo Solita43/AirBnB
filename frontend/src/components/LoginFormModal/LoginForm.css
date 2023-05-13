@@ -1,36 +1,45 @@
-button#demo-login {
+#demo-login {
   border: none;
   background-color: white;
   color: var(--teal);
   text-decoration: underline;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 1.1em;
   padding-bottom: 6px;
   padding-top: 8px;
+  font-weight: bold;
+}
+
+#login_title {
+  font-weight: bold;
+  font-size: 24px;
+
 }
 
 
-
 #login-button:disabled {
-  box-shadow: #6b6a6a 2.5px 2px 0.8px;
+  box-shadow: #6b6a6a 2.5px 2px 0.5em;
   background-color: white;
   color: #6b6a6a;
   border: #6b6a6a solid 2px;
 }
 
 #login-button {
-  padding: 10px;
-  font-size: 11px;
+  padding: 0.6em;
+  font-size: 14px;
   background-color: var(--red);
   cursor: pointer;
-  border: solid black 3px;
-  box-shadow: black 3px 2px .7px;
+  border: solid black 1px;
+  box-shadow: black 0.3em 0.3em 0.4em;
+  border-radius: 0.5em;
+  color: white;
+  font-weight: bold;
 }
 
 .login_input {
-  border: solid black 2px;
-  box-shadow: black 0.5px .5px 1px;
-  padding: 0 4px;
+  border: solid black 1px;
+  box-shadow: black 0.1em 0.1em 0.2em;
+  padding: 0.5em;
   font-size: 12px;
   background-color: var(--light-teal);
 }
