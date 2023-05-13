@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { useDispatch } from 'react-redux';
 import { useModal } from "../../context/Modal";
 import { deleteReview } from "../../store/reviews";
+import './DeleteModal.css'
 
 function DeleteReviewModal({ reviewId }) {
     const dispatch = useDispatch();
@@ -22,11 +23,11 @@ function DeleteReviewModal({ reviewId }) {
     }
 
     return (
-        <div id='delete-spot-modal'>
+        <div className='delete-modal'>
             <h1>Confirm Delete</h1>
             <p>Are you sure you want to delete this Review?</p>
-            <button id='review_delete' onClick={handleDelete}>Yes (Delete Review)</button>
-            <button id='review_cancel_delete' onClick={closeModal}>No (Keep Review)</button>
+            <button className='modal_delete' onClick={handleDelete}>Yes (Delete Review)</button>
+            <button className='modal_cancel_delete' onClick={closeModal}>No (Keep Review)</button>
         </div>
     );
 }

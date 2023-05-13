@@ -1,13 +1,14 @@
-#delete-spot-modal {
+.delete-modal {
   display: flex;
   flex-direction: column;
   gap: 0.4em;
   padding: 1rem 1.5rem;
   align-items: center;
   font-weight: bold;
+  text-align: center;
 }
 
-button#review_delete {
+.modal_delete {
   padding: 0.6rem;
   background-color: red;
   color: white;
@@ -19,7 +20,7 @@ button#review_delete {
   font-size: 1rem;
 }
 
-#review_cancel_delete {
+.modal_cancel_delete {
   padding: 0.6rem;
   background-color: var(--dark-gray);
   color: white;
