@@ -68,13 +68,21 @@ button.menu-button {
 
 #user_dropdown_info,
 #user_dropdown_manageSpots {
-  border-bottom: var(--dark-gray) solid 2px;
+  border-bottom: var(--light-gray) solid 2px;
   padding-bottom: 5px;
   width: 100%;
+  padding-left: 0.8em;
+}
+
+
+#user_dropdown_manageSpots:hover {
+  background-color: #dddbdb;
+
 }
 
 #user_dropdown_manageSpots {
   padding-top: 3px;
+  cursor: pointer;
 }
 
 #user_dropdown_manageSpots > a {
@@ -110,7 +118,7 @@ button.menu-button {
   box-shadow: var(--dark-gray) 5px 1px 6px;
   border-radius: 10px;
   padding: 0.5rem 0;
-  width: 250%;
+  width: 275%;
   top: 105%;
   right: 5%;
   z-index: 2;
@@ -130,11 +138,16 @@ button.menu-button {
 .logout {
   width: fit-content;
   font-size: 12px;
-  padding: 3px;
+  padding: 0.4em;
   background-color: var(--dark-gray);
-  border-radius: 15px;
+  border-radius: 1.5em;
   cursor: pointer;
   font-weight: bold;
+  background-color: var(--teal);
+  color: white;
+  box-shadow: black 0.2em 0.2em 0.4em;
+  border:black 1px solid;
+
 }
 
 .hidden {
