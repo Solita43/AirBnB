@@ -13,15 +13,14 @@
 #login_title {
   font-weight: bold;
   font-size: 24px;
-
 }
-
 
 #login-button:disabled {
   box-shadow: #6b6a6a 2.5px 2px 0.5em;
   background-color: white;
   color: #6b6a6a;
   border: #6b6a6a solid 2px;
+  cursor: not-allowed;
 }
 
 #login-button {

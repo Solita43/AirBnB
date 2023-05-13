@@ -1,29 +1,40 @@
+#signup_title {
+  font-weight: bold;
+  font-size: 24px;
+}
+
 #sign_up_button:disabled {
-  box-shadow: #6b6a6a 2.5px 2px 0.8px;
+  padding: 0.6em;
+  box-shadow: #6b6a6a 2.5px 2px 0.5em;
   background-color: white;
   color: #6b6a6a;
   border: #6b6a6a solid 2px;
+  cursor: not-allowed;
+  font-size: 1.2em;
 }
 
 #sign_up_button {
-  padding: 10px;
-  font-size: 11px;
-  background-color: #ff5a5f;
+  padding: 0.45em;
+  font-size: 1.5em;
+  background-color: var(--red);
   cursor: pointer;
-  border: solid black 3px;
-  box-shadow: black 3px 2px 0.7px;
+  border: solid black 1px;
+  box-shadow: black 0.3em 0.3em 0.4em;
+  border-radius: 0.5em;
+  color: white;
+  font-weight: bold;
 }
 
 .signup_input {
-    border: solid black 2px;
-    box-shadow: black 0.5px .5px 1px;
-    padding: 0 4px;
-    font-size: 12px;
-    background-color: #E8F0FE;
-  }
-  
-  .signup_input:focus-visible {
-    border: solid black 2px;
-    box-shadow: black 0.5px 1px 1px;
-    outline: none;
-  }
+  border: solid black 1px;
+  box-shadow: black 0.1em 0.1em 0.2em;
+  padding: 0.3em;
+  font-size: 12px;
+  background-color: var(--light-teal);
+}
+
+.signup_input:focus-visible {
+  border: solid black 2px;
+  box-shadow: black 0.5px 1px 1px;
+  outline: none;
+}
