@@ -35,7 +35,7 @@
 
 .manage_update {
   padding: 0.2em;
-  background-color: var(--teal);
+  background-color: var(--button-teal);
   color: white;
   font-weight: bold;
   border-radius: 0.4em;

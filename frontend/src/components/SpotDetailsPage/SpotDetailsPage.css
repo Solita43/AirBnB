@@ -106,5 +106,74 @@
 }
 
 p#details_description {
-    font-size: 0.89em;
+  font-size: 0.89em;
+}
+
+div#details-reviews {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+#details_star {
+  font-weight: 900;
+  font-size: 1.4rem;
+}
+
+.details_post {
+  padding: 0.5em;
+  background-color: #00525ea8;
+  color: white;
+  font-weight: bold;
+  border-radius: 0.4em;
+  border: solid black 1px;
+  box-shadow: black 0.2em 0.2em 0.2em;
+  cursor: pointer;
+  width: 20%;
+}
+
+#reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  max-width: 1000px;
+}
+
+p#review_date {
+  font-size: 0.8em;
+  color: var(--dark-gray);
+  padding-bottom: 0.5rem;
+}
+
+button.review_delete {
+  width: 25%;
+  padding: 0.2em;
+  background-color: var(--dark-gray);
+  color: white;
+  font-weight: bold;
+  border: 1px solid black;
+  box-shadow: black 0.1em 0.1em 0.2em;
+  cursor: pointer;
+}
+
+button.review_delete {
+  width: 9rem;
+  padding: 0.2em;
+  background-color: var(--dark-gray);
+  color: white;
+  font-weight: bold;
+  border: 1px solid black;
+  box-shadow: black 0.1em 0.1em 0.2em;
+}
+
+p#posted_review {
+  flex-wrap: wrap;
+  word-wrap: break-word;
 }

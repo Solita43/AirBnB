@@ -39,9 +39,9 @@ function SpotDetailsPage() {
 
     let reviewCount;
     if (spot.numReviews === 1) {
-        reviewCount = `${spot.numReviews} Review`
+        reviewCount = `${spot.numReviews} review`
     } else if (spot.numReviews > 1) {
-        reviewCount = `${spot.numReviews} Reviews`
+        reviewCount = `${spot.numReviews} reviews`
     }
 
     reviews?.sort((revA, revB) => -1 * (Date.parse(revA.updatedAt) - Date.parse(revB.updatedAt)));
@@ -74,27 +74,34 @@ function SpotDetailsPage() {
                 </div>
                 <div id='callout'>
                     <div id='callout_info'>
-                        <h3>${spot.price}</h3><p id='callout_night'> night</p>
+                        <h3>${spot.price.toFixed(2)}</h3><p id='callout_night'> night</p>
                         <p className='callout_review'><i id='callout_star' className="fa-solid fa-star"></i>{rating}   {reviewCount && (<><i id='callout_dot' className="fa-solid fa-circle" style={{ fontSize: '3px' }}></i> {reviewCount}</>)}</p>
                     </div>
                     <button id='reserve' onClick={handleClick}>Reserve</button>
                 </div>
             </div>
             <div id='details-reviews'>
-                <h3><i className="fa-solid fa-star"></i> {rating} {reviewCount && (<><i className="fa-solid fa-circle"  style={{ fontSize: '3px' }}></i> {reviewCount}</>)}</h3>
-            </div>
-            <div id='reviews'>
-                {sessionUser && reviews && !reviews.find(review => review.userId === sessionUser.id) && sessionUser.id !== spot.ownerId && (
-                    <OpenModalButton modalComponent={<PostReviewModal spotId={spot.id} />} buttonText='Post Your Review' />
+                <i className="fa-solid fa-star" id='details_star'></i>
+                <h3> {rating}</h3>
+                {reviewCount && (
+                    <>
+                        <i className="fa-solid fa-circle" id='details_dot' style={{ fontSize: '3px' }}></i>
+                        <h3>{reviewCount}</h3>
+                    </>
                 )}
+            </div>
+            {sessionUser && reviews && !reviews.find(review => review.userId === sessionUser.id) && sessionUser.id !== spot.ownerId && (
+                <OpenModalButton addClass='details_post' modalComponent={<PostReviewModal spotId={spot.id} />} buttonText='Post Your Review' />
+            )}
+            <div id='reviews'>
                 {reviews && reviews.map(review => {
                     return (
                         <div className='review' key={`${review.id}`}>
-                            <h5>{review.User.firstName}</h5>
-                            <p>{getDate(review.updatedAt)}</p>
-                            <p>{review.review}</p>
+                            <h4>{review.User.firstName}</h4>
+                            <p id='review_date'>{getDate(review.updatedAt)}</p>
+                            <p id='posted_review'>{review.review}</p>
                             {sessionUser && review.userId === sessionUser.id && (
-                                <OpenModalButton modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />} buttonText='Delete' />
+                                <OpenModalButton addClass='review_delete' modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />} buttonText='Delete' />
                             )}
                         </div>
                     )
