@@ -1,4 +1,5 @@
 import { csrfFetch } from './csrf';
+import { getSpotDetails } from './spots';
 
 // constants to avoid debugging typos
 const GET_SPOT_REVIEWS = 'reviews/GETSPOTREVIEWS';
@@ -44,19 +45,20 @@ export const postReview = (spotId, review) => async (dispatch) => {
         body: JSON.stringify(review)
     });
 
-    dispatch(getReviewsForSpot(spotId));
+    dispatch(getReviewsForSpot(spotId))
+    dispatch(getSpotDetails(spotId))
 
 }
 
 // Delete a review thunk
-export const deleteReview = (reviewId) => async (dispatch) => {
+export const deleteReview = (reviewId, spotId, closeModal) => async (dispatch) => {
     const res = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE'
     });
     const data = await res.json();
 
-    dispatch(removeReview(reviewId));
-
+    dispatch(removeReview(reviewId))
+    dispatch(getSpotDetails(spotId))
 }
 
 

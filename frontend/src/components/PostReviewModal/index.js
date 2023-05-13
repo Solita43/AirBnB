@@ -34,7 +34,7 @@ function PostReviewModal({ spotId }) {
         })
 
     }
-    
+
     if (Object.values(errors).length) {
         err = Object.values(errors);
     }

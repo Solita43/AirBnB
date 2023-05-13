@@ -1,35 +1,110 @@
 #spot-details {
-    max-width: 1000px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: auto;
+  padding: 2rem 0;
+  gap: 0.5rem;
 }
 
 #spot-images {
-    display: flex;
-    max-width: 100%;
-    gap: 5px;
-    margin: auto;
-    flex-wrap: wrap;
+  display: flex;
+  max-width: 100%;
+  gap: 5px;
+  margin: auto;
+  flex-wrap: wrap;
 }
 
 #previewImg {
-    width: 50%;
-    object-fit: contain;
+  width: 50%;
+  object-fit: cover;
+  height: auto;
 }
 
 #smaller-images {
-    display: flex;
-    flex-wrap: wrap;
-    width: 49%;
-    height: 400px;
-    justify-content: center;
-    border: red solid 3px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 49.5%;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .detail-images {
-    width: 48%;
-    height: 49%;
-    object-fit: cover;
+  width: 49%;
+  height: 48.5%;
+  object-fit: cover;
+}
+
+#description-callout {
+  border-bottom: solid 2px var(--light-gray);
+  padding: 0.5rem 0 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+#name-description {
+  width: 65%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+#callout {
+  border: solid black 3px;
+  border-radius: 0.5em;
+  width: 30%;
+  margin-left: auto;
+  height: auto;
+  padding: 1rem;
+}
+
+#callout_info {
+  display: flex;
+  align-items: center;
+  padding-bottom: 0.5rem;
+}
+
+.callout_review {
+  margin-left: auto;
+}
+
+#callout_night {
+  font-size: 0.7em;
+  align-self: flex-end;
+  padding-bottom: 0.2em;
+  font-weight: bold;
+  padding-left: 0.3em;
+}
+
+.callout_review {
+  margin-left: auto;
+  font-size: 0.8em;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  font-weight: bold;
+}
+
+#callout_star {
+  font-size: 1.1rem;
+  padding-bottom: 0.3em;
+}
+
+#reserve {
+  padding: 0.5em;
+  font-size: 0.9em;
+  background-color: var(--red);
+  cursor: pointer;
+  border: solid black 1px;
+  box-shadow: black 0.3em 0.3em 0.4em;
+  border-radius: 0.3em;
+  color: white;
+  font-weight: bold;
+}
+
+p#details_description {
+    font-size: 0.89em;
 }

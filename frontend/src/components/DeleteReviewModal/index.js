@@ -4,13 +4,13 @@ import { useModal } from "../../context/Modal";
 import { deleteReview } from "../../store/reviews";
 import './DeleteModal.css'
 
-function DeleteReviewModal({ reviewId }) {
+function DeleteReviewModal({ reviewId, spotId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const [errors, setErrors] = useState('');
 
     const handleDelete = () => {
-        return dispatch(deleteReview(reviewId)).then(() => closeModal()).catch(async (res) => {
+        return dispatch(deleteReview(reviewId, spotId)).then(() => closeModal()).catch(async (res) => {
             const data = await res.json();
             if (data.message) {
                 setErrors(data.message);
