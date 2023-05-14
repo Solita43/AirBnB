@@ -53,7 +53,7 @@ function SpotDetailsPage() {
         return `${month}, ${year}`;
     }
 
-    const rating = spot.avgStarRating ? spot.avgStarRating.toFixed(2) : 'New';
+    const rating = spot.avgStarRating ? +spot.avgStarRating.toFixed(2) : 'New';
 
     return (
         <div id='spot-details'>
@@ -74,7 +74,7 @@ function SpotDetailsPage() {
                 </div>
                 <div id='callout'>
                     <div id='callout_info'>
-                        <h3>${spot.price.toFixed(2)}</h3><p id='callout_night'> night</p>
+                        <h3>${+spot.price.toFixed(2)}</h3><p id='callout_night'> night</p>
                         <p className='callout_review'><i id='callout_star' className="fa-solid fa-star"></i>{rating}   {reviewCount && (<><i id='callout_dot' className="fa-solid fa-circle" style={{ fontSize: '3px' }}></i> {reviewCount}</>)}</p>
                     </div>
                     <button id='reserve' onClick={handleClick}>Reserve</button>

@@ -23,7 +23,7 @@ function SpotCard({ spot, update }) {
 
     if (!spot) return null;
 
-    const rating = spot.avgRating ? spot.avgRating.toFixed(2) : 'New';
+    const rating = spot.avgRating ? +spot.avgRating.toFixed(2) : 'New';
     const price = (+spot.price).toFixed(2);
 
     return (
