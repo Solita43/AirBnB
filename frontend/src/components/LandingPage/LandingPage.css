@@ -122,4 +122,28 @@
     width: 85%;
     justify-self: center;
   }
+
+  #header_button {
+    color: var(--teal);
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    background-color: white;
+    font-size: 0.7rem;
+  }
+
+  button.menu-button {
+    font-weight: bold;
+    background-color: white;
+    border-radius: 2rem;
+    border: solid var(--light-gray) 1px;
+    display: flex;
+    color: var(--dark-gray);
+    justify-content: space-evenly;
+    padding: 0.08em 0.3em;
+    gap: 6px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 3.9rem;
+  }
 }

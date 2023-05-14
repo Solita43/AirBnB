@@ -143,7 +143,6 @@ button.menu-button {
   border-radius: 1.5em;
   cursor: pointer;
   font-weight: bold;
-  background-color: var(--teal);
   color: white;
   box-shadow: black 0.2em 0.2em 0.4em;
   border: black 1px solid;
