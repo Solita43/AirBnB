@@ -60,7 +60,7 @@ function SpotDetailsPage() {
             <h1>{spot.name}</h1>
             <p id='city_detail'>{`${spot.city}, ${spot.state}, ${spot.country}`}</p>
             <div id='spot-images'>
-                <img src={previewImage.url} alt='Preview Image' id='previewImg'></img>
+                <img src={previewImage.url} alt='' id='previewImg'></img>
                 <div id='smaller-images'>
                     {images.map((image, idx) => {
                         if (idx < 4) return (<img src={image.url} key={image.id} className='detail-images'></img>)
