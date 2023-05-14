@@ -24,6 +24,7 @@ function SpotCard({ spot, update }) {
     if (!spot) return null;
 
     const rating = spot.avgRating ? spot.avgRating.toFixed(2) : 'New';
+    const spot = spot.price.toFixed(2);
 
     return (
         <div className='spot-card'>
@@ -40,7 +41,7 @@ function SpotCard({ spot, update }) {
                             <p className="card-starRating">{rating}</p>
                         </div>
                     </div>
-                    <p className="card-price"><span className='bold'>${spot.price.toFixed(2)}</span> night</p>
+                    <p className="card-price"><span className='bold'>$ {price}</span> night</p>
                 </div>
             {update && (
                 <div id='update_delete_spot'>
