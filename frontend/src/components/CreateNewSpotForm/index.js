@@ -132,7 +132,7 @@ function CreateNewSpotForm() {
                     <input type="url" placeholder="Preview Image Url" onChange={(e) => {
                         setErrors((prev) => {
                             const newErr = { ...prev };
-                            delete errors.previewImage;
+                            delete newErr.previewImage;
                             return newErr;
 
                         });
@@ -150,7 +150,7 @@ function CreateNewSpotForm() {
                     <input type="url" placeholder="Image Url" onChange={(e) => {
                         setErrors((prev) => {
                             const newErr = { ...prev };
-                            delete errors.Image1;
+                            delete newErr.Image1;
                             return newErr;
 
                         });
@@ -169,7 +169,7 @@ function CreateNewSpotForm() {
                     <input type="url" placeholder="Image Url" onChange={(e) => {
                         setErrors((prev) => {
                             const newErr = { ...prev };
-                            delete errors.Image2;
+                            delete newErr.Image2;
                             return newErr;
 
                         });

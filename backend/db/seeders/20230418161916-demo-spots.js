@@ -37,7 +37,10 @@ module.exports = {
         state: 'CA',
         country: 'United States',
         name: 'Urban Oasis Loft',
-        description: "Welcome to our stunning 2-bedroom apartment in the heart of San Francisco's vibrant Mission District.Our spacious and modern apartment is the perfect home base for exploring everything that this eclectic neighborhood has to offer.With its open floor plan, gourmet kitchen, and stunning views of the city skyline, our apartment is the ultimate retreat for those seeking comfort and luxury in the heart of San Francisco. Located just steps away from some of the city's best restaurants, cafes, and shops, our apartment offers easy access to the cultural and culinary delights of the Mission District. Spend your days exploring the colorful murals that line the streets, sampling delicious Mexican food at one of the neighborhood's many taquerias, or browsing the unique boutiques and vintage shops that dot the area. After a day of exploring, come back to our cozy apartment and relax in the comfort of our stylish living room, complete with a flat- screen TV and comfortable seating.Our gourmet kitchen is fully equipped with top - of - the - line appliances and everything you need to whip up a delicious meal, and our spacious dining area offers plenty of room to enjoy your culinary creations. Both of our spacious bedrooms offer plush bedding and plenty of storage space, ensuring a restful night's sleep. And with its stunning views of the city skyline, our apartment offers a truly unforgettable San Francisco experience. Whether you're in town for business or pleasure, our Mission District apartment is the perfect place to call home during your stay in San Francisco. We look forward to welcoming you!",
+        description: `Welcome to our stunning 2-bedroom apartment in the heart of San Francisco's vibrant Mission District. Our spacious and modern apartment is the perfect home base for exploring everything that this eclectic neighborhood has to offer. With its open floor plan, gourmet kitchen, and stunning views of the city skyline, our apartment is the ultimate retreat for those seeking comfort and luxury in the heart of San Francisco. 
+          Located just steps away from some of the city's best restaurants, cafes, and shops, our apartment offers easy access to the cultural and culinary delights of the Mission District. Spend your days exploring the colorful murals that line the streets, sampling delicious Mexican food at one of the neighborhood's many taquerias, or browsing the unique boutiques and vintage shops that dot the area. 
+          After a day of exploring, come back to our cozy apartment and relax in the comfort of our stylish living room, complete with a flat- screen TV and comfortable seating.Our gourmet kitchen is fully equipped with top - of - the - line appliances and everything you need to whip up a delicious meal, and our spacious dining area offers plenty of room to enjoy your culinary creations. Both of our spacious bedrooms offer plush bedding and plenty of storage space, ensuring a restful night's sleep. And with its stunning views of the city skyline, our apartment offers a truly unforgettable San Francisco experience. 
+          Whether you're in town for business or pleasure, our Mission District apartment is the perfect place to call home during your stay in San Francisco. We look forward to welcoming you!`,
         price: 265.00
       },
       {
@@ -170,7 +173,7 @@ module.exports = {
         description: 'Looking for a unique and unforgettable vacation experience? Our treehouse bungalow, perched high in the canopy of a tropical rainforest, is the perfect choice. With its rustic charm, stunning views, and eco-friendly design, our bungalow offers a one-of-a-kind opportunity to reconnect with nature and escape the stresses of everyday life.',
         price: 159.00
       },
-      
+
     ], {});
   },
 
