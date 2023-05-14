@@ -41,13 +41,13 @@ function UpdateSpotForm() {
         e.preventDefault();
         setErrors({});
         const updatedSpot = {
-            country,
-            address,
-            city,
-            state,
-            description,
-            name,
-            price: +price
+            country: country.trim(),
+            address: address.trim(),
+            city: city.trim(),
+            state: state.trim(),
+            description: description.trim(),
+            name: name.trim(),
+            price: +(price.trim())
         }
 
         await dispatch(spotActions.updateSpot(spot.id, updatedSpot)).catch(async (res) => {
@@ -79,21 +79,21 @@ function UpdateSpotForm() {
                     <p>Guests will only get your exact address once they booked a reservation.</p>
                     <label>
                         Country
-                        <input type="text" required value={country} onChange={(e) => setCountry(e.target.value.trim())}></input>
+                        <input type="text" required value={country} onChange={(e) => setCountry(e.target.value)}></input>
                     </label>
                     <label>
                         Street Address
-                        <input type='text' required value={address} onChange={(e) => setAddress(e.target.value.trim())}></input>
+                        <input type='text' required value={address} onChange={(e) => setAddress(e.target.value)}></input>
                     </label>
                     <div id='city_state'>
 
                         <label>
                             City
-                            <input type='text' id='city' required value={city} onChange={(e) => setCity(e.target.value.trim())}></input>
+                            <input type='text' id='city' required value={city} onChange={(e) => setCity(e.target.value)}></input>
                         </label>
                         <label id="state_label">
                             State
-                            <input type="text" className='state' required value={state} onChange={(e) => setState(e.target.value.trim())}></input>
+                            <input type="text" className='state' required value={state} onChange={(e) => setState(e.target.value)}></input>
                         </label>
                     </div>
                 </div>
@@ -101,19 +101,19 @@ function UpdateSpotForm() {
                 <div id='describe-new-spot'>
                     <h3>Describe your place to guests</h3>
                     <p>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</p>
-                    <textarea required minLength='30' value={description} placeholder="Plese write at least 30 characters" onChange={(e) => setDescription(e.target.value.trim())}></textarea>
+                    <textarea required minLength='30' value={description} placeholder="Plese write at least 30 characters" onChange={(e) => setDescription(e.target.value)}></textarea>
                 </div>
 
                 <div id="new-spot-title">
                     <h3>Create a title for your spot</h3>
                     <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
-                    <input type='text' required maxLength='50' value={name} onChange={(e) => setName(e.target.value.trim())}></input>
+                    <input type='text' required maxLength='50' value={name} onChange={(e) => setName(e.target.value)}></input>
                 </div>
 
                 <div id='new-spot-price'>
                     <h3>Set a base price for your spot</h3>
                     <p>Competitive pricing can help your listing stand out and rank higher in search results.<br></br>
-                        $ <input type="text" required value={(+price).toFixed(2)} onChange={(e) => setPrice(e.target.value.trim())}></input> </p>
+                        $ <input type="text" required value={(+price).toFixed(2)} onChange={(e) => setPrice(e.target.value)}></input> </p>
                 </div>
                 <button type="submit" id='update_spot_button'>Update Your Spot</button>
 
