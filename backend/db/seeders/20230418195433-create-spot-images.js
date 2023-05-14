@@ -175,6 +175,31 @@ module.exports = {
       images.push(createImgObj(10, el, preview))
     });
 
+    spot11.forEach((el, idx) => {
+      const preview = idx === 0 ? true : false;
+      images.push(createImgObj(11, el, preview))
+    });
+
+    spot12.forEach((el, idx) => {
+      const preview = idx === 0 ? true : false;
+      images.push(createImgObj(12, el, preview))
+    });
+
+    spot13.forEach((el, idx) => {
+      const preview = idx === 0 ? true : false;
+      images.push(createImgObj(13, el, preview))
+    });
+
+    spot14.forEach((el, idx) => {
+      const preview = idx === 0 ? true : false;
+      images.push(createImgObj(14, el, preview))
+    });
+
+    spot15.forEach((el, idx) => {
+      const preview = idx === 0 ? true : false;
+      images.push(createImgObj(15, el, preview))
+    });
+
 
     await queryInterface.bulkInsert(options, images, {});
   },

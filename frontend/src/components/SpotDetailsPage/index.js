@@ -106,7 +106,7 @@ function SpotDetailsPage() {
                         </div>
                     )
                 })}
-                {!reviews && !reviews.length && sessionUser && sessionUser.id !== spot.ownerId ? (<p>Be the first to post a review!</p>) : null}
+                {reviews && !reviews.length && sessionUser && sessionUser.id !== spot.ownerId ? (<p>Be the first to post a review!</p>) : null}
             </div>
         </div>
     );
