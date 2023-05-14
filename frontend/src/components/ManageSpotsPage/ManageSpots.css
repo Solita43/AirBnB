@@ -79,3 +79,14 @@
   color: white;
   font-weight: bold;
 }
+
+#no_spots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: var(--light-gray);
+  font-size: 3rem;
+  font-weight: bold;
+  opacity: 0.6;
+}
