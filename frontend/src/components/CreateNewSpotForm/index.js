@@ -53,7 +53,7 @@ function CreateNewSpotForm() {
             state: state.trim(),
             description: description.trim(),
             name: name.trim(),
-            price: +(price.trim())
+            price: +price
         }
 
 

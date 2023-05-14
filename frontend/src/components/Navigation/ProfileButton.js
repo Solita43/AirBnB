@@ -43,6 +43,12 @@ function ProfileButton({ user }) {
 
     }
 
+    const manageClick = (e) => {
+        e.preventDefault();
+        closeMenu();
+        history.push('/spots/current');
+    }
+
 
 
     return (
@@ -58,9 +64,9 @@ function ProfileButton({ user }) {
                             <li>Hello, {user.firstName}</li>
                             <li>{user.email}</li>
                         </div>
-                        <div id='user_dropdown_manageSpots'>
-                            <NavLink exact to='/spots/current' onClick={closeMenu}>Manage Spots</NavLink>
-                        </div>
+                        <li id='user_dropdown_manageSpots' onClick={manageClick}>
+                            Manage Spots
+                        </li>
                         <li>
                             <button onClick={logout} className='logout'>Log Out</button>
                         </li>
@@ -68,7 +74,7 @@ function ProfileButton({ user }) {
                     </div>
                 ) : (
                     <>
-                        <OpenModalMenuItem itemText='Sign Up' modalComponent={<SignupFormModal />} onItemClick={closeMenu} signup='sign-up-item'/>
+                        <OpenModalMenuItem itemText='Sign Up' modalComponent={<SignupFormModal />} onItemClick={closeMenu} signup='sign-up-item' />
                         <OpenModalMenuItem itemText='Log In' modalComponent={<LoginFormModal />} onItemClick={closeMenu} />
 
                     </>

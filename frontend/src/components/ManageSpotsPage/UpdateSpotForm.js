@@ -47,7 +47,7 @@ function UpdateSpotForm() {
             state: state.trim(),
             description: description.trim(),
             name: name.trim(),
-            price: +(price.trim())
+            price: +price
         }
 
         await dispatch(spotActions.updateSpot(spot.id, updatedSpot)).catch(async (res) => {
