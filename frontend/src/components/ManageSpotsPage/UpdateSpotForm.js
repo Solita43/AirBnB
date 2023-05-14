@@ -101,7 +101,7 @@ function UpdateSpotForm() {
                 <div id='new-spot-price'>
                     <h3>Set a base price for your spot</h3>
                     <p>Competitive pricing can help your listing stand out and rank higher in search results.<br></br>
-                        $ <input type="text" required value={price.toFixed(2)} onChange={(e) => setPrice(e.target.value)}></input> </p>
+                        $ <input type="text" required value={+price.toFixed(2)} onChange={(e) => setPrice(e.target.value)}></input> </p>
                 </div>
                 <button type="submit" id='update_spot_button'>Update Your Spot</button>
 
