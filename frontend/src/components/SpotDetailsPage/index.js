@@ -39,9 +39,9 @@ function SpotDetailsPage() {
 
     let reviewCount;
     if (spot.numReviews === 1) {
-        reviewCount = `${spot.numReviews} review`
+        reviewCount = `${spot.numReviews} Review`
     } else if (spot.numReviews > 1) {
-        reviewCount = `${spot.numReviews} reviews`
+        reviewCount = `${spot.numReviews} Reviews`
     }
 
     reviews?.sort((revA, revB) => -1 * (Date.parse(revA.updatedAt) - Date.parse(revB.updatedAt)));
@@ -63,7 +63,8 @@ function SpotDetailsPage() {
                 <img src={previewImage.url} alt='' id='previewImg'></img>
                 <div id='smaller-images'>
                     {images.map((image, idx) => {
-                        if (idx < 4) return (<img src={image.url} key={image.id} className='detail-images'></img>)
+                        if (idx < 4) return (<img alt='' src={image.url} key={image.id} className='detail-images'></img>)
+                        else return null;
                     })}
                 </div>
             </div>

@@ -29,8 +29,8 @@ function UpdateSpotForm() {
 
     useEffect(() => {
         if (!spot) dispatch(spotActions.getSpotDetails(spotId)).then((res) => populateForm(res))
-        else populateForm(spot)
-        
+        else populateForm(spot);
+        // eslint-disable-next-line
     }, [])
 
 
