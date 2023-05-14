@@ -20,7 +20,12 @@ function ManageSpotsPage() {
         <div id='manage-spots'>
             <div id='manage-header'>
                 <h1>Manage Spots</h1>
-                <CreateNewSpotButton />
+                {!spots.length && (
+                    <>
+                        <CreateNewSpotButton />
+                        <p id='no_spots'>You haven't created any spots yet!</p>
+                    </>
+                )}
             </div>
             <div id='all-spots'>
                 {isLoaded && (spots.map(spot => (
