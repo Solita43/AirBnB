@@ -6,24 +6,36 @@ import { Redirect, useParams } from 'react-router-dom';
 function UpdateSpotForm() {
     const { spotId } = useParams();
     const spot = useSelector(state => state.spots.singleSpot);
-    const [country, setCountry] = useState(spot.country);
-    const [address, setAddress] = useState(spot.address);
-    const [city, setCity] = useState(spot.city);
-    const [state, setState] = useState(spot.state);
-    const [description, setDescription] = useState(spot.description);
-    const [name, setName] = useState(spot.name);
-    const [price, setPrice] = useState(spot.price);
+    const [country, setCountry] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [description, setDescription] = useState('');
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState('');
     const [errors, setErrors] = useState({})
     const dispatch = useDispatch();
     const [isSubmitted, setIsSubmitted] = useState(false)
 
+    const populateForm = (spot) => {
+        setCountry(spot.country);
+        setAddress(spot.address);
+        setCity(spot.city);
+        setState(spot.state);
+        setDescription(spot.description);
+        setName(spot.name);
+        setPrice(spot.price)
+    }
+
     useEffect(() => {
+        if (!spot) dispatch(spotActions.getSpotDetails(spotId)).then((res) => populateForm(res))
+        else populateForm(spot)
+        
+    }, [])
 
-        dispatch(spotActions.getSpotDetails(spotId));
-
-    }, [dispatch, spotId])
 
     if (!spot) return null;
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
