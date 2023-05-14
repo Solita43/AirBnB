@@ -47,13 +47,13 @@ function CreateNewSpotForm() {
         setErrors({});
 
         const spot = {
-            country,
-            address,
-            city,
-            state,
-            description,
-            name,
-            price: +price
+            country: country.trim(),
+            address: address.trim(),
+            city: city.trim(),
+            state: state.trim(),
+            description: description.trim(),
+            name: name.trim(),
+            price: +(price.trim())
         }
 
 
@@ -83,23 +83,23 @@ function CreateNewSpotForm() {
                     <p>Guests will only get your exact address once they booked a reservation.</p>
                     <label>
                         Country
-                        <input type="text" required placeholder="Country" value={country} onChange={(e) => setCountry(e.target.value.trim())}></input>
+                        <input type="text" required placeholder="Country" value={country} onChange={(e) => setCountry(e.target.value)}></input>
                     </label>
                     {errors.country && (<p className="errors">{errors.country}</p>)}
                     <label>
                         Street Address
-                        <input type='text' required placeholder="Street Address" value={address} onChange={(e) => setAddress(e.target.value.trim())}></input>
+                        <input type='text' required placeholder="Street Address" value={address} onChange={(e) => setAddress(e.target.value)}></input>
                     </label>
                     {errors.address && (<p className="errors">{errors.address}</p>)}
                     <div id='city_state'>
                         <label>
                             City
-                            <input id='city' type='text' placeholder="City" required value={city} onChange={(e) => setCity(e.target.value.trim())}></input>
+                            <input id='city' type='text' placeholder="City" required value={city} onChange={(e) => setCity(e.target.value)}></input>
                         </label>
                         {errors.city && (<p className="errors">{errors.city}</p>)}
                         <label id="state_label">
                             State
-                            <input className='state' placeholder="State" type="text" required value={state} onChange={(e) => setState(e.target.value.trim())}></input>
+                            <input className='state' placeholder="State" type="text" required value={state} onChange={(e) => setState(e.target.value)}></input>
                         </label>
                         {errors.state && (<p className="errors">{errors.state}</p>)}
                     </div>
@@ -108,21 +108,21 @@ function CreateNewSpotForm() {
                 <div id='describe-new-spot'>
                     <h3>Describe your place to guests</h3>
                     <p>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</p>
-                    <textarea required minLength='30' placeholder="Please write at least 30 characters..." onChange={(e) => setDescription(e.target.value.trim())}></textarea>
+                    <textarea required minLength='30' placeholder="Please write at least 30 characters..." onChange={(e) => setDescription(e.target.value)}></textarea>
                     {errors.description && (<p className="errors">{errors.description}</p>)}
                 </div>
 
                 <div id="new-spot-title">
                     <h2>Create a title for your spot</h2>
                     <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
-                    <input type='text' required placeholder='Name your spot...' maxLength='50' value={name} onChange={(e) => setName(e.target.value.trim())}></input>
+                    <input type='text' required placeholder='Name your spot...' maxLength='50' value={name} onChange={(e) => setName(e.target.value)}></input>
                     {errors.name && (<p className="errors">{errors.name}</p>)}
                 </div>
 
                 <div id='new-spot-price'>
                     <h2>Set a base price for your spot</h2>
                     <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
-                    <p style={{ fontWeight: 'bold', fontSize: '1.1em' }}>$ <input id='form_price' placeholder='Price per night (USD)' type="text" required value={price} onChange={(e) => setPrice(e.target.value.trim())}></input> </p>
+                    <p style={{ fontWeight: 'bold', fontSize: '1.1em' }}>$ <input id='form_price' placeholder='Price per night (USD)' type="text" required value={price} onChange={(e) => setPrice(e.target.value)}></input> </p>
                     {errors.price && (<p className="errors">{errors.price}</p>)}
                 </div>
 
