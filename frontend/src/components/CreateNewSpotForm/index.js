@@ -207,7 +207,7 @@ function CreateNewSpotForm() {
                     <input type="url" placeholder="Image Url" onChange={(e) => {
                         setErrors((prev) => {
                             const newErr = { ...prev };
-                            delete errors.Image4;
+                            delete newErr.Image4;
                             return newErr;
 
                         });
