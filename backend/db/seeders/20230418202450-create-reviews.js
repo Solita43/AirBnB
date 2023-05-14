@@ -56,6 +56,19 @@ module.exports = {
       review: "This place was amazing! The host was friendly and helpful, and the apartment was clean, stylish, and had all the amenities we needed. The location was also fantastic, with easy access to public transportation and nearby attractions. Would definitely stay here again.",
       stars: 5
     },
+    {
+      spotId: 3,
+      userId: 4,
+      review: "Beautiful quiet home to stay in with a lovely cosy feeling. You have privacy and the bed is the comfiest ever. Pretty much have the whole top floor to yourself and Rhona put breakfast out for me to help myself in the morning with. Thank you for having me!",
+      stars: 5
+    },
+    {
+      spotId: 3,
+      userId: 5,
+      review: "Nice, clean & cosy accommodation. Guests stay upstairs so quite private. Light breakfast included.",
+      stars: 4
+    },
+    
    ], {});
   },
 

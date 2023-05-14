@@ -51,7 +51,7 @@ function SignupFormModal() {
                         className="signup_input"
                         type="text"
                         value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
+                        onChange={(e) => setFirstName(e.target.value.trim())}
                         required
                     />
                 </label>
@@ -62,7 +62,7 @@ function SignupFormModal() {
                         className="signup_input"
                         type="text"
                         value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
+                        onChange={(e) => setLastName(e.target.value.trim())}
                         required
                     />
                 </label>
@@ -73,7 +73,7 @@ function SignupFormModal() {
                         className="signup_input"
                         type="text"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value.trim())}
                         required
                     />
                 </label>
@@ -84,7 +84,7 @@ function SignupFormModal() {
                         className="signup_input"
                         type="text"
                         value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        onChange={(e) => setUsername(e.target.value.trim())}
                         required
                     />
                 </label>
@@ -96,7 +96,7 @@ function SignupFormModal() {
                         className="signup_input"
                         type="password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => setPassword(e.target.value.trim())}
                         required
                     />
                 </label>
@@ -108,7 +108,7 @@ function SignupFormModal() {
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => {
-                            if (password !== e.target.value) {
+                            if (password !== e.target.value.trim()) {
                                 setErrors(prev => {
                                     const err = { ...prev }
                                     err.confirmPassword = "Confirm Password field must be the same as the Password field"
@@ -121,7 +121,7 @@ function SignupFormModal() {
                                     return err;
                                 })
                             }
-                            setConfirmPassword(e.target.value)
+                            setConfirmPassword(e.target.value.trim())
                         }}
                         required
                     />
