@@ -59,17 +59,47 @@ const spot8 = ['https://a0.muscache.com/im/pictures/63a21006-5525-4932-88bf-5d5e
   'https://a0.muscache.com/im/pictures/prohost-api/Hosting-47026814/original/ec0a73c7-20d6-44a0-8c0f-589696fef2ee.jpeg',
   'https://a0.muscache.com/im/pictures/prohost-api/Hosting-47026814/original/90d02e51-4ae0-4eec-a0bc-02b3732357b9.jpeg']
 
-  const spot9 = ['https://a0.muscache.com/im/pictures/460efdcd-1286-431d-b4e5-e316d6427707.jpg',
+const spot9 = ['https://a0.muscache.com/im/pictures/460efdcd-1286-431d-b4e5-e316d6427707.jpg',
   'https://a0.muscache.com/im/pictures/prohost-api/Hosting-47026814/original/784c82b1-45c7-4f47-815d-d19063875a75.jpeg',
   'https://a0.muscache.com/im/pictures/prohost-api/Hosting-47026814/original/84bb8aca-82e0-4395-acfa-3a5a1218b83b.jpeg',
   'https://a0.muscache.com/im/pictures/prohost-api/Hosting-47026814/original/2a385fcd-9bdf-40d9-896b-ddd566e0d2b0.jpeg',
   'https://a0.muscache.com/im/pictures/prohost-api/Hosting-47026814/original/cdd47105-eee6-4f0a-b959-f45fb56400ee.jpeg']
 
-  const spot10 = ['https://a0.muscache.com/im/pictures/miso/Hosting-629781609683997067/original/8b845bcf-aac4-4ae7-b4ea-f924aeb039dd.jpeg',
+const spot10 = ['https://a0.muscache.com/im/pictures/miso/Hosting-629781609683997067/original/8b845bcf-aac4-4ae7-b4ea-f924aeb039dd.jpeg',
   'https://a0.muscache.com/im/pictures/miso/Hosting-705626260397182020/original/f73d4dc6-65af-4b68-b212-9ce5a8dec785.jpeg',
   'https://a0.muscache.com/im/pictures/miso/Hosting-705626260397182020/original/36a5d287-97c6-4b9a-bf90-141c74419f08.jpeg',
   'https://a0.muscache.com/im/pictures/miso/Hosting-705626260397182020/original/caded1a5-fc7c-42f7-8555-143ab64d963a.jpeg',
   'https://a0.muscache.com/im/pictures/miso/Hosting-705626260397182020/original/8c876fdd-0fc3-4bd5-acd1-9fc9079afcd0.jpeg']
+
+const spot11 = ['https://a0.muscache.com/im/pictures/819ea537-72c2-423d-8c61-d6693add5424.jpg',
+  'https://a0.muscache.com/im/pictures/miso/Hosting-23206143/original/e7da1f36-922f-4631-a287-91ceda05970f.jpeg',
+  'https://a0.muscache.com/im/pictures/miso/Hosting-23206143/original/55b0263c-756d-466b-b050-39b031398a1d.jpeg',
+  'https://a0.muscache.com/im/pictures/5b2ed1a5-de7a-4f54-a72f-962900eb79dd.jpg',
+  'https://a0.muscache.com/im/pictures/63d3c5b8-92d7-4765-90b1-ee453ef45ed3.jpg']
+
+const spot12 = ['https://a0.muscache.com/im/pictures/01ad1e74-eb62-4224-8847-48c53b1e3571.jpg',
+  'https://a0.muscache.com/im/pictures/miso/Hosting-54183374/original/cd3bc1dc-6b81-4873-92a8-fbe125db8fa2.jpeg',
+  'https://a0.muscache.com/im/pictures/miso/Hosting-54183374/original/9b5144bb-8806-41e5-b08d-8c337152d869.jpeg',
+  'https://a0.muscache.com/im/pictures/miso/Hosting-582460821043381087/original/d83989d3-6307-4f27-95e1-a13eaade4305.jpeg',
+  'https://a0.muscache.com/im/pictures/miso/Hosting-582460821043381087/original/506eb33f-bd3a-47e1-b7d1-2c81882d2b95.jpeg']
+
+const spot13 = ['https://a0.muscache.com/im/pictures/miso/Hosting-860959181555113482/original/ccee833e-ca4f-4a8a-915d-6f738712a8b7.jpeg',
+  'https://a0.muscache.com/im/pictures/miso/Hosting-576599054777073307/original/53e611cc-b827-4cec-850e-c1db1274de43.jpeg',
+  'https://a0.muscache.com/im/pictures/miso/Hosting-576599054777073307/original/08de3cca-09f8-41e0-b52b-5e4c81f72449.jpeg',
+  'https://a0.muscache.com/im/pictures/miso/Hosting-576599054777073307/original/aedd2e12-31f7-4a07-b756-25f1d6b15c77.jpeg',
+  'https://a0.muscache.com/im/pictures/miso/Hosting-576599054777073307/original/b0bcf466-94b5-4ef3-b3c8-99fca1f0a0ec.jpeg']
+
+const spot14 = ['https://a0.muscache.com/im/pictures/prohost-api/Hosting-842223816500007656/original/8816482a-4e9c-40bd-8943-3a888f52e198.jpeg',
+  'https://a0.muscache.com/im/pictures/d8e8f2e0-608d-4fd6-b7e0-9b73545df1c8.jpg',
+  'https://a0.muscache.com/im/pictures/707c9e51-0e9f-4dd2-8fcc-56a69edf0f9f.jpg',
+  'https://a0.muscache.com/im/pictures/61f15c60-2bbb-436c-9e3a-9c1b8f067501.jpg',
+  'https://a0.muscache.com/im/pictures/a607ba07-d771-4040-9d0f-a49455e46e81.jpg']
+
+const spot15 = ['https://a0.muscache.com/im/pictures/58f86a91-a526-4e1b-934e-8f6bc3f60e10.jpg',
+  'https://a0.muscache.com/im/pictures/7b7bc3c5-9929-4a95-bd78-1ab95a86f011.jpg',
+  'https://a0.muscache.com/im/pictures/91c421af-1cd3-40f1-a0fb-189925920122.jpg',
+  'https://a0.muscache.com/im/pictures/miso/Hosting-35322045/original/1f95279a-592f-4636-b439-69d4b2bb1142.jpeg',
+  'https://a0.muscache.com/im/pictures/01ac4feb-cb7d-40f2-95df-89955cc2f876.jpg']
 
 
 module.exports = {
