@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSpots } from "../../store/spots";
 import SpotCard from './SpotCard'
@@ -14,12 +14,15 @@ function LandingPage() {
     useEffect(() => {
         dispatch(getAllSpots()).then(() => setIsLoaded(true));
     }, [dispatch])
-    
+
     return (
-        <div id="all-spots">
-            {isLoaded && (spots.map(spot => (
-                <SpotCard key={spot.id} spot={spot} />
-            )))}
+        <div id='landing'>
+            <div id="all-spots">
+                {isLoaded && (spots.map(spot => (
+                    <SpotCard key={spot.id} spot={spot} />
+                )))}
+            </div>
+
         </div>
     );
 }

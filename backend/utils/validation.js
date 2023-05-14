@@ -5,6 +5,7 @@ const { validationResult, check } = require('express-validator');
 // (to customize, see express-validator's documentation)
 const handleValidationErrors = (req, _res, next) => {
     const validationErrors = validationResult(req);
+    console.log(validationErrors)
 
     if (!validationErrors.isEmpty()) {
         const errors = {};
@@ -16,6 +17,7 @@ const handleValidationErrors = (req, _res, next) => {
         err.errors = errors;
         err.status = 400;
         err.title = "Bad request.";
+        console.log("HERE IS YOUR ERROR OBJECT => ", err)
         next(err);
     }
     next();

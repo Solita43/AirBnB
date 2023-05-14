@@ -1,3 +1,18 @@
 .rating-input {
   display: flex;
+  gap: 0.1em;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+i.fa-regular.fa-star {
+  color: var(--dark-gray);
+}
+
+textarea:focus-visible,
+input:focus-visible {
+  outline: none;
+  color: black;
+  opacity: 1;
+  font-size: 0.85rem;
 }

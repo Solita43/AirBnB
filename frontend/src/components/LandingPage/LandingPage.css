@@ -1,52 +1,125 @@
-#all-spots {
-    display: flex;
-    justify-content: space-evenly;
+#landing {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: auto;
+  padding: 1.5rem 3rem;
 }
 
-.spot-card {
-    display: flex;
-    flex-direction: column;
-    max-width: 23%;
-    border: solid red 3px;
+#all-spots {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  width: 100%;
+  max-width: 1000px;
+  gap: 2rem;
+  margin: auto;
+}
 
+#rating_card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  gap: 0.5em;
+  font-size: 12px;
 }
 
 .card-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+  width: 100%;
+  height: 225px;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.spot-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  cursor: pointer;
+}
+
+.card-location,
+.bold {
+  font-weight: bold;
+}
+
+.card-price {
+  color: black;
+}
+
+.spot_card_info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  padding: 0.3em 0.4rem;
+  font-size: 14px;
 }
 
 .rating-location {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: center;
+  color: black;
 }
 
 .tooltip {
-    position: relative;
-    cursor: pointer;
-    
+  position: relative;
+  cursor: pointer;
 }
 
 .tooltip::before {
-    position: absolute;
-    z-index: 2;
-    width: 140px;
-    display: none;
-    left: calc(50%);
-    top: calc(50%);
-    text-align: center;
-    color: #ffffff;
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 8px;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: bold;
-    content: attr(data-tooltip);
-
+  position: absolute;
+  z-index: 2;
+  width: 140px;
+  display: none;
+  left: calc(50%);
+  top: calc(50%);
+  text-align: center;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  content: attr(data-tooltip);
 }
 
 .tooltip:hover::before {
-    display: inline-block;
+  display: inline-block;
 }
 
+@media (max-width: 885px) {
+  #all-spots {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    gap: 1rem;
+    margin: auto;
+  }
+}
+
+@media (max-width: 689px) {
+  #all-spots {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: 1rem;
+    margin: auto;
+  }
+}
+
+@media (max-width: 455px) {
+  #all-spots {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 1rem;
+    margin: auto;
+  }
+
+  .spot-card {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    justify-self: center;
+  }
+}

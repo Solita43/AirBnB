@@ -1,0 +1,98 @@
+#create-spot-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem 8rem 4rem;
+  margin: auto;
+  width: 50%;
+  font-size: 14px;
+}
+
+#create_spot_title {
+  font-size: 2rem;
+}
+
+input {
+  border: solid black 1px;
+  box-shadow: black 0.1em 0.1em 0.2em;
+  padding: 0.5em;
+  font-size: 14px;
+  background-color: var(--light-teal);
+  opacity: 0.6;
+}
+
+textarea {
+  border: solid black 1px;
+  box-shadow: black 0.1em 0.1em 0.2em;
+  padding: 0.5em 1em;
+  font-size: 12px;
+  background-color: var(--light-teal);
+  resize: none;
+  width: 100%;
+  height: 9rem;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+textarea:focus-visible,
+input:focus-visible {
+  outline: none;
+}
+
+#new-spot-location {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.8em;
+  padding-bottom: 1.5em;
+  border-bottom: var(--dark-gray) 2px solid;
+}
+
+#city_state {
+  display: flex;
+  gap: 0.5rem;
+  position: relative;
+}
+
+#comma {
+  position: absolute;
+  top: 63%;
+  left: 62%;
+  font-size: 1rem;
+  font-weight: bold;
+}
+input#city {
+  width: 95%;
+}
+
+label#state_label {
+  width: 45%;
+}
+
+#describe-new-spot,
+#new-spot-title,
+#new-spot-price,
+#new-spot-photos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+  padding-bottom: 1.5em;
+  border-bottom: var(--dark-gray) 2px solid;
+  width: 100%;
+}
+
+input#form_price {
+  width: 60%;
+}
+
+#submit_spot {
+  padding: 0.45em;
+  font-size: 1.5em;
+  background-color: var(--red);
+  cursor: pointer;
+  border: solid black 1px;
+  box-shadow: black 0.3em 0.3em 0.4em;
+  border-radius: 0.5em;
+  color: white;
+  font-weight: bold;
+}

@@ -8,6 +8,7 @@ import { postReview } from "../../store/reviews";
 
 function PostReviewModal({ spotId }) {
     const [review, setReview] = useState('')
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const { closeModal } = useModal();
     const dispatch = useDispatch();
     const [rating, setRating] = useState(0);
@@ -18,6 +19,8 @@ function PostReviewModal({ spotId }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setIsSubmitted(true);
+
         setErrors({})
 
         dispatch(postReview(spotId, {
@@ -31,7 +34,7 @@ function PostReviewModal({ spotId }) {
         })
 
     }
-    
+
     if (Object.values(errors).length) {
         err = Object.values(errors);
     }
@@ -44,7 +47,7 @@ function PostReviewModal({ spotId }) {
             ))}
             <textarea required minLength='10' placeholder="Leave your review here..." value={review} onChange={(e) => setReview(e.target.value)}></textarea>
             <StarRating rating={rating} setRating={setRating} />
-            <button disabled={review.length < 10 || rating === 0} type='submit'>Submit Your Review</button>
+            <button disabled={review.length < 10 || rating === 0 || isSubmitted} className='modal_submit' type='submit'>Submit Your Review</button>
         </form>
     );
 }

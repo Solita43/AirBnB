@@ -1,7 +1,7 @@
 import React from 'react';
 import { useModal } from "../../context/Modal";
 
-function OpenModalMenuItem({ modalComponent, itemText, onItemClick, onModalClose }) {
+function OpenModalMenuItem({ modalComponent, itemText, onItemClick, onModalClose, signup }) {
     const { setModalContent, setOnModalClose } = useModal();
 
     const onClick = () => {
@@ -12,7 +12,7 @@ function OpenModalMenuItem({ modalComponent, itemText, onItemClick, onModalClose
 
     return (
         <>
-            <li onClick={onClick}>{itemText}</li>
+            <li className='modal_item' id={signup ? signup: null} onClick={onClick}>{itemText}</li>
         </>
     );
 }

@@ -3,6 +3,7 @@ import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import './LoginForm.css';
+import DemoUserLoginButton from "./DemoUserLogin";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -26,11 +27,15 @@ function LoginFormModal() {
 
   return (
     <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <h3 id='login_title'>Log In</h3>
+      {errors.credential && (
+        <p className="errors">{errors.credential}</p>
+      )}
+      <form onSubmit={handleSubmit} className='modal'>
         <label>
           Username or Email
           <input
+            className="login_input"
             type="text"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
@@ -40,17 +45,16 @@ function LoginFormModal() {
         <label>
           Password
           <input
+            className="login_input"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        {errors.credential && (
-          <p>{errors.credential}</p>
-        )}
-        <button type="submit">Log In</button>
+        <button className='modal_submit' type="submit" disabled={credential.length < 4 || password.length < 6}>Log In</button>
       </form>
+      <DemoUserLoginButton closeMenu={closeModal} />
     </>
   );
 }

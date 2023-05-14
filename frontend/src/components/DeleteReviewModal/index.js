@@ -2,14 +2,15 @@ import React, {useState} from "react";
 import { useDispatch } from 'react-redux';
 import { useModal } from "../../context/Modal";
 import { deleteReview } from "../../store/reviews";
+import './DeleteModal.css'
 
-function DeleteReviewModal({ reviewId }) {
+function DeleteReviewModal({ reviewId, spotId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const [errors, setErrors] = useState('');
 
     const handleDelete = () => {
-        return dispatch(deleteReview(reviewId)).then(() => closeModal()).catch(async (res) => {
+        return dispatch(deleteReview(reviewId, spotId)).then(() => closeModal()).catch(async (res) => {
             const data = await res.json();
             if (data.message) {
                 setErrors(data.message);
@@ -22,11 +23,11 @@ function DeleteReviewModal({ reviewId }) {
     }
 
     return (
-        <div id='delete-spot-modal'>
+        <div className='delete-modal'>
             <h1>Confirm Delete</h1>
             <p>Are you sure you want to delete this Review?</p>
-            <button onClick={handleDelete}>Yes(Delete Review)</button>
-            <button onClick={closeModal}>No(Keep Review)</button>
+            <button className='modal_delete' onClick={handleDelete}>Yes (Delete Review)</button>
+            <button className='modal_cancel_delete' onClick={closeModal}>No (Keep Review)</button>
         </div>
     );
 }
