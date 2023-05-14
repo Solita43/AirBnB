@@ -25,7 +25,7 @@ function DeleteReviewModal({ reviewId, spotId }) {
     return (
         <div className='delete-modal'>
             <h1>Confirm Delete</h1>
-            <p>Are you sure you want to delete this Review?</p>
+            <p>Are you sure you want to delete this review?</p>
             <button className='modal_delete' onClick={handleDelete}>Yes (Delete Review)</button>
             <button className='modal_cancel_delete' onClick={closeModal}>No (Keep Review)</button>
         </div>

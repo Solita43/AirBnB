@@ -38,7 +38,7 @@ function LoginFormModal() {
             className="login_input"
             type="text"
             value={credential}
-            onChange={(e) => setCredential(e.target.value)}
+            onChange={(e) => setCredential(e.target.value.trim())}
             required
           />
         </label>
@@ -48,7 +48,7 @@ function LoginFormModal() {
             className="login_input"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value.trim())}
             required
           />
         </label>
