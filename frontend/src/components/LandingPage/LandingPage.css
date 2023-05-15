@@ -68,11 +68,11 @@
 
 .tooltip::before {
   position: absolute;
-  z-index: 2;
-  width: 140px;
+  z-index: 1;
+  width: 80%;
   display: none;
-  left: calc(50%);
-  top: calc(50%);
+  left: 5%;
+  top: 30%;
   text-align: center;
   color: #ffffff;
   background-color: rgba(0, 0, 0, 0.7);
