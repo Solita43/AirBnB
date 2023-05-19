@@ -66,6 +66,31 @@ MatrixBnB is a fullstack web application clone inspired by [AirBnB](https://www.
 - CSS
 - Javascript
 - Express
+- Redux
+
+### Getting Started
+To set up this project locally start by cloning the repository
+  ```sh
+  git clone 
+  ```
+
+cd into the backend folder , run npm install, and start the server
+
+  ```sh
+  cd backend
+  npm install
+  npm start
+  ```
+
+Do the same for the frontend folder
+
+  ```sh
+  cd ../frontend
+  npm install
+  npm start
+  ```
+
+Once you have all the node_modules installed
 
 <!-- GETTING STARTED -->
 
@@ -78,10 +103,7 @@ To get a local copy up and running follow these simple example steps. -->
 
 This is an example of how to list things you need to use the software and how to install them.
 
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
+
 
 ### Installation
 
